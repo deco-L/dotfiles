@@ -1,7 +1,9 @@
 #
 # ~/.bashrc
 #
+
 neofetch
+
 if [ "$(tty)" = "/dev/tty1" ]; then
 	exec dbus-run-session sway
 fi
@@ -11,6 +13,6 @@ fi
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-PS1='[ঌ⎛ಲළ൭⎞໒]$ '
+# PS1='[ঌ⎛ಲළ൭⎞໒]$ '
 
 xrdb ~/.Xdefaults

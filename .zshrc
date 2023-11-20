@@ -105,17 +105,20 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 neofetch
+xrdb ~/.Xdefaults
 
 if [ "$(tty)" = "/dev/tty1" ]; then
 	exec dbus-run-session sway
 fi
 
+# username
 # PS1='[ঌ⎛ಲළ൭⎞໒]$ '
-
-xrdb ~/.Xdefaults
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# alias
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+alias gitmain='bash ~/script/gitmain.sh'
+alias gitsub='bash ~/script/gitsub.sh'
