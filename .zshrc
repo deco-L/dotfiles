@@ -118,7 +118,13 @@ fi
 [[ $- != *i* ]] && return
 
 # alias
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias gitmain='bash ~/script/gitmain.sh'
-alias gitsub='bash ~/script/gitsub.sh'
+	# bash
+	alias ls='ls --color=auto'
+	alias grep='grep --color=auto'
+
+	# git
+	alias gitmain='bash ~/script/gitmain.sh'
+	alias gitsub='bash ~/script/gitsub.sh'
+
+	# ssh
+	alias ssh_thz='bash ~/script/ssh_thz.sh'
