@@ -1,5 +1,5 @@
 -- load lua/
 require("options")
 
--- plugins
-require("lua.plugin.lazy")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("plugin.lazy")
