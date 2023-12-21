@@ -134,8 +134,13 @@ fi
 	alias gitmain='bash ~/script/gitmain.sh'
 	alias gitsub='bash ~/script/gitsub.sh'
 
+    # python
+    alias flake8='flake8 --exclude __init__.py'
+
 	# ssh
 	alias ssh_thz='bash ~/script/ssh_thz.sh'
 
+	# proxy
+	alias gp_university_account='bash ~/script/git_push_http_university_account.sh'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
