@@ -12,6 +12,8 @@ return {
 
         -- set termguicolors to enable highlight groups
         vim.opt.termguicolors = true
+        -- change color for arrows in tree to light blue
+        vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
         -- OR setup with some options
         nvimtree.setup({

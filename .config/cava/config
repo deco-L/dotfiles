@@ -69,7 +69,7 @@
 # For fifo 'source' will be the path to fifo-file.
 # For shmem 'source' will be /squeezelite-AA:BB:CC:DD:EE:FF where 'AA:BB:CC:DD:EE:FF' will be squeezelite's MAC address
 method = pulse
-source = 15
+source = 16
 
 ; method = pipewire
 ; source = auto
@@ -170,7 +170,7 @@ source = 15
 # a terminal that can change color definitions such as Gnome-terminal or rxvt.
 # default is to keep current terminal color
 ; background = default
-; foreground = default
+foreground = cyan
 
 # SDL and sdl_glsl only support hex code colors, these are the default:
 ; background = '#111111'

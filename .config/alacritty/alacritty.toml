@@ -1,0 +1,7 @@
+[window]
+decorations = "none"
+opacity = 0.93
+
+[window.dimensions]
+columns = 171
+lines = 50

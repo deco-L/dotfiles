@@ -1,5 +1,14 @@
 ### Variables
 #
+# keymap
+input * {
+    xkb_layout "jp"
+    xkb_variant "kana86"
+    xkb_options "terminate:ctrl_alt_bksp"
+}
+
+input <identifier> xkb_model "pc105"
+
 # Logo key. Use Mod1 for Alt.
 set $mod Mod1
 set $super Mod4
