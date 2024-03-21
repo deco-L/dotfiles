@@ -30,8 +30,8 @@ vim.opt.termguicolors = true -- 24 ビットカラーを使用
 vim.opt.background = "dark" -- ダークカラーを使用する
 
 -- インデント
-vim.opt.shiftwidth = 4 -- シフト幅を4に設定する
-vim.opt.tabstop = 4 -- タブ幅を4に設定する
+vim.opt.shiftwidth = 2 -- シフト幅を4に設定する
+vim.opt.tabstop = 2 -- タブ幅を4に設定する
 vim.opt.expandtab = true -- タブ文字をスペースに置き換える
 vim.opt.autoindent = true -- 自動インデントを有効にする
 vim.opt.smartindent = true -- インデントをスマートに調整する

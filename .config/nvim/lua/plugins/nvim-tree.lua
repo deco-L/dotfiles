@@ -33,6 +33,9 @@ return {
 
     -- custom mappings
     vim.keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>")
+    vim.keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFile<CR>")
+    vim.keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>")
+    vim.keymap.set("n", "<leader>er", "<cmd>NvimTreeReflash<CR>")
 
   end,
 }
