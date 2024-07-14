@@ -129,6 +129,7 @@ fi
 	alias grep='grep --color=auto'
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
+    alias clock='tty-clock -xcs -C 4'
 
 	# git
 	alias gitmain='bash ~/script/gitmain.sh'
