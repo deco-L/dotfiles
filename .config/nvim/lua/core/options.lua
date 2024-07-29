@@ -26,8 +26,8 @@ vim.opt.incsearch = true -- インクリメンタルサーチを有効
 vim.opt.matchtime = 1 -- 入力された文字列がマッチするまでにかかる時間
 
 -- カラースキーム
-vim.opt.termguicolors = true -- 24 ビットカラーを使用
-vim.opt.background = "dark" -- ダークカラーを使用する
+-- vim.opt.termguicolors = true -- 24 ビットカラーを使用
+-- vim.opt.background = "dark" -- ダークカラーを使用する
 
 -- インデント
 vim.opt.shiftwidth = 2 -- シフト幅を4に設定する
@@ -52,7 +52,7 @@ vim.opt.showtabline = 2 -- タブラインを表示する設定
 vim.opt.signcolumn = "yes" -- サインカラムを表示
 
 ---- 行番号の色を変更
-vim.cmd("highlight LineNr guifg=#8a70ac")
+-- vim.cmd("highlight LineNr guifg=#8a70ac")
 
 -- カーソルの形状
 vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
