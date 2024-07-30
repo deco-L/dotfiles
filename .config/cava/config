@@ -63,7 +63,7 @@
 # (all pulseaudio sinks(outputs) have 'monitor' sources(inputs) associated with them). For piepwire 'source' will be the object name or object.serial of the device to capture from.
 # Both input and output devices are supported. For alsa 'source' will be the capture device. For fifo 'source' will be the path to fifo-file. For shmem 'source' will be /squeezelite-AA:BB:CC:DD:EE:FF where 'AA:BB:CC:DD:EE:FF' will be squeezelite's MAC address 
 method = pulse
-source = 19
+source = 32
 
 ; method = pipewire
 ; source = auto
