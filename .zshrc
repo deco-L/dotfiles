@@ -138,6 +138,9 @@ fi
     # python
     alias flake8='flake8 --exclude __init__.py'
 
+    # clock
+    alias peaclock='peaclock --config-dir ~/.peaclock'
+
 	# ssh
 	alias ssh_thz='bash ~/script/ssh_thz.sh'
 
