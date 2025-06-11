@@ -1,0 +1,40 @@
+[mgr]
+show_hidden=true
+
+[opener]
+play = [
+  { run = 'mpv "$@"', orphan = true, for = "unix" }
+]
+
+edit = [
+	{ run = 'nvim "$@"', block = true, for = "unix" }
+]
+
+image = [
+  { run = 'swayimg -f "$@"', orphan = true, for = "unix" }
+]
+
+pdf = [
+  { run = 'zathura "$@"', orphan = true, for = "unix" }
+]
+
+open = [
+	{ run = 'dolphin "$@"', desc = "dolphin" }
+]
+
+[open]
+prepend_rules = [
+  { mime = "application/pdf", use = "pdf" }
+]
+
+rules = [
+  { mime = "application/*", use = "edit" },
+  { mime = "audio/*", use = "play" },
+  { mime = "image/*", use = "image" },
+  { mime = "message/*", use = "edit" },
+  { mime = "model/*", use = "edit" },
+  { mime = "multipart/*", use = "edit" },
+  { mime = "text/*", use = "edit" },
+  { mime = "video/*", use = "play" },
+]
+
