@@ -5,21 +5,18 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-#
-# ~/.zshrc
-#
-
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -80,9 +77,16 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+	git
+	autojump
+	zsh-syntax-highlighting
+	zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
+
+fastfetch
 
 # User configuration
 
@@ -95,56 +99,39 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-neofetch
-xrdb ~/.Xdefaults
-
-if [ "$(tty)" = "/dev/tty1" ]; then
-	exec dbus-run-session sway
-fi
-
-# username
-# PS1='[ঌ⎛ಲළ൭⎞໒]$ '
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
-# alias
-	# bash
-	alias ls='ls --color=auto'
-	alias grep='grep --color=auto'
-    alias pbcopy='xsel --clipboard --input'
-    alias pbpaste='xsel --clipboard --output'
-    alias clock='tty-clock -xcs -C 4'
-
-	# git
-	alias gitmain='bash ~/script/gitmain.sh'
-	alias gitsub='bash ~/script/gitsub.sh'
-
-    # python
-    alias flake8='flake8 --exclude __init__.py'
-
-    # clock
-    alias peaclock='peaclock --config-dir ~/.peaclock'
-
-	# ssh
-	alias ssh_thz='bash ~/script/ssh_thz.sh'
-
-	# proxy
-	alias gp_university_account='bash ~/script/git_push_http_university_account.sh'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# export
+export HYPRSHOT_DIR="$HOME/Picture/screenshot/"
+
+# alias
+# # curl
+alias patto='curl parrot.live'
+alias weather='curl wttr.in/japan'
+# # pbcopy & pbpaste
+alias pbcopy='wl-copy'
+alias pbpaste='wl-paste'
+# # git
+alias gitmain='sh ~/Script/gitmain.sh'
+alias gitsub='sh ~/Script/gitsub.sh'
+alias gitlog='git log --graph --abbrev-commit --decorate'
+
