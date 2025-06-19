@@ -11,7 +11,7 @@ edit = [
 ]
 
 image = [
-  { run = 'swayimg -f "$@"', orphan = true, for = "unix" }
+  { run = 'swayimg -f "$@" "./"', orphan = true, for = "unix" }
 ]
 
 pdf = [
