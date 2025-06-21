@@ -39,5 +39,15 @@ return {
         nls.builtins.diagnostics.hadolint,
       })
     end,
-  }
+  },
+
+  {
+    "mfussengger/nvim-lint",
+    optional = true,
+    opts = function(_, opts)
+      opts.linters_by_ft = opts.linters_by_ft or {}
+      opts.linters_by_ft.dockerfile = opts.linters_by_ft.dockerfile or {}
+      table.insert(opts.linters_by_ft.dockerfile, "hadolint")
+    end,
+  },
 }
