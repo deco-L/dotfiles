@@ -67,13 +67,11 @@ return {
   {
     "neovim/nvim-lspconfig",
     ---@class PluginLspOpts
-    opts = {
+    opts = function(_, opts)
       ---@type lspconfig.options
-      servers = {
-        -- pyright will be automatically installed with mason and loaded with lspconfig
-        pyright = {},
-      },
-    },
+      opts.servers = opts.servers or {}
+      opts.servers.pyright = {}
+    end,
   },
 
   -- add tsserver and setup with typescript.nvim instead of lspconfig
@@ -84,7 +82,7 @@ return {
       init = function()
         require("lazyvim.util").lsp.on_attach(function(_, buffer)
           -- stylua: ignore
-          vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
+          vim.keymap.set("n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
           vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
         end)
       end,
@@ -185,13 +183,14 @@ return {
   -- add any tools you want to have installed below
   {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, {
         "stylua",
         "shellcheck",
         "shfmt",
         "flake8",
-      },
-    },
+      })
+    end,
   },
 }
