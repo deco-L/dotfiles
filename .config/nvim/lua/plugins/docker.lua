@@ -1,4 +1,6 @@
-if true then return {} end
+if false then
+  return {}
+end
 
 return {
   {
@@ -42,7 +44,7 @@ return {
   },
 
   {
-    "mfussengger/nvim-lint",
+    "mfussenegger/nvim-lint",
     optional = true,
     opts = function(_, opts)
       opts.linters_by_ft = opts.linters_by_ft or {}
