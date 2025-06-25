@@ -1,4 +1,6 @@
-if true then return {} end
+if false then
+  return {}
+end
 
 return {
   {
@@ -6,7 +8,7 @@ return {
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
-        "git-config",
+        "git_config",
         "gitcommit",
         "git_rebase",
         "gitignore",
@@ -16,17 +18,18 @@ return {
   },
 
   {
-    "petertriho/cmp-git",
-    opts = {},
-  },
-
-  {
     "hrsh7th/nvim-cmp",
     optional = true,
     dependencies = {
-      { "petertriho/cmp-git" },
+      {
+        "petertriho/cmp-git",
+        config = function()
+          require("cmp_git").setup({})
+        end,
+      },
     },
     opts = function(_, opts)
+      opts.sources = opts.sources or {}
       table.insert(opts.sources, { name = "git" })
     end,
   },
