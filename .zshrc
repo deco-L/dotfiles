@@ -121,7 +121,7 @@ fastfetch
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # export
-export HYPRSHOT_DIR="$HOME/Picture/screenshot/"
+# export HYPRSHOT_DIR="$HOME/Picture/screenshot/"
 
 # alias
 # # curl
