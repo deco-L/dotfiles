@@ -1,3 +1,7 @@
+if false then
+  return {}
+end
+
 return {
   { "nvim-neotest/neotest-plenary" },
 
