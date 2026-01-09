@@ -47,7 +47,7 @@ unfocused-split-opacity = 0.8
 window-inherit-working-directory = true
 gtk-tabs-location = hidden
 # # theme
-theme = catppuccin-macchiato
+theme = Catppuccin Macchiato
 #
 # # font
 font-family = Hack

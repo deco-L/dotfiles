@@ -1,6 +1,5 @@
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Symbols Nerd Font", "Font Awesome 6 Free", "Cica", "Hack Nerd Font", sans-serif;
     font-size: 13px;
 }
 
