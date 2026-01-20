@@ -1,0 +1,41 @@
+# ignore all directories and files
+*
+
+# unignore directories
+!/
+!/.config
+!/.config/ghostty
+!/.config/hypr
+!/.config/nvim
+!/.config/nvim/lua
+!/.config/kitty
+!/.config/rofi
+!/.config/sheldon
+!/.config/swayimg
+!/.config/waybar
+!/.config/script
+!/.config/wezterm
+!/.config/xmobar
+!/.config/yazi
+!/.config/zathura
+!/.config/zsh
+!/.config/zsh/rc
+!/script
+
+# unignore files
+!**.gitignore
+!**/README.md
+!**/*.toml
+!**/*.conf
+!**/*.config
+!**/*.lua
+!**/*.json
+!**/LICENSE
+!**/*.jsonc
+!**/*.py
+!**/*.css
+!**/conf
+!**/*.zsh
+!**/.zshenv
+!**/.zshrc
+!**/zathurarc

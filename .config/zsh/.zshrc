@@ -31,9 +31,11 @@ setopt hist_reduce_blanks
 setopt share_history
 
 # completion
+eval "$(dircolors)"
 zstyle ':completion:*' matcher-list "" 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*:descriptions' format '%B%F{blue}%d%f%b'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' group-name ''
 function _deferred_compinit() {
   autoload -Uz compinit
