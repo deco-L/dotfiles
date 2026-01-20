@@ -1,4 +1,6 @@
 # alias
+# ls
+alias ls='ls -F --color=auto'
 # # curl
 alias patto='curl parrot.live'
 alias weather='curl wttr.in/japan'
