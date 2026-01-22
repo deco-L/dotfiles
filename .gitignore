@@ -1,28 +1,42 @@
 # ignore all directories and files
 *
 
-# unignore directories
+# allow base directories
 !/
-!/.config
-!/.config/ghostty
-!/.config/hypr
-!/.config/nvim
-!/.config/nvim/lua
-!/.config/kitty
-!/.config/rofi
-!/.config/sheldon
-!/.config/swayimg
-!/.config/waybar
-!/.config/script
-!/.config/wezterm
-!/.config/xmobar
-!/.config/yazi
-!/.config/zathura
-!/.config/zsh
-!/.config/zsh/rc
-!/script
+!/.config/
+!/script/
 
-# unignore files
+# allow conifg directories
+!/.config/ghostty
+!/.config/ghostty/**/
+!/.config/hypr
+!/.config/hypr/**/
+!/.config/nvim
+!/.config/nvim/**/
+!/.config/kitty
+!/.config/kitty/**/
+!/.config/rofi
+!/.config/rofi/**/
+!/.config/sheldon
+!/.config/sheldon/**/
+!/.config/swayimg
+!/.config/swayimg/**/
+!/.config/waybar
+!/.config/waybar/**/
+!/.config/script
+!/.config/script/**/
+!/.config/wezterm
+!/.config/wezterm/**/
+!/.config/xmobar
+!/.config/xmobar/**/
+!/.config/yazi
+!/.config/yazi/**/
+!/.config/zathura
+!/.config/zathura/**/
+!/.config/zsh
+!/.config/zsh/**/
+
+# allow files inside allowed dirs
 !**.gitignore
 !**/README.md
 !**/*.toml
@@ -39,3 +53,4 @@
 !**/.zshenv
 !**/.zshrc
 !**/zathurarc
+
