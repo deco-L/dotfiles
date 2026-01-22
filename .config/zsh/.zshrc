@@ -76,6 +76,9 @@ unset _starship_cache _starship_config
 # aliases
 source ${ZRCDIR}/alias.zsh
 
+# bind
+source ${ZRCDIR}/bind.zsh
+
 # init
 fastfetch
 
