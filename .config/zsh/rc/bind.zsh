@@ -1,5 +1,6 @@
 # vim mode
 if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+  bindkey -e;
 else
   bindkey -v
 fi
