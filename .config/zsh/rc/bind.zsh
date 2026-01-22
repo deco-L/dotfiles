@@ -1,5 +1,8 @@
 # vim mode
-bindkey -v
+if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+else
+  bindkey -v
+fi
 
 # history → zsh-history-substring-search
 # autoload -U history-search-end
