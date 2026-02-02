@@ -17,3 +17,4 @@ export PATH="$PATH:$HOME/.cargo/bin"
 # editor
 export EDITOR="nvim"
 export GIT_EDITOR="${EDITOR}"
+

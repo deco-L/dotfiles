@@ -15,20 +15,8 @@ HISTFILE=$HOME/.config/zsh/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
-setopt EXTENDED_HISTORY
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_SPACE
-setopt SHARE_HISTORY
-setopt HIST_EXPIRE_DUPS_FIRST
-
 # zsh-history-substring-search
 zsh-defer source "$HOME/.config/zsh/rc/plugins/zsh-history-substring-search.zsh"
-
-# options
-setopt hist_ignore_dups
-setopt hist_reduce_blanks
-setopt share_history
 
 # completion
 eval "$(dircolors)"
@@ -54,13 +42,24 @@ function _deferred_compinit() {
 }
 zsh-defer _deferred_compinit
 
+# fzf
+_fzf_cache="${XDG_CACHE_HOME:-$HOME/.cache}/fzf_init.zsh"
+_fzf_init="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/rc/plugins/fzf_init.zsh"
+if [[ ! -r "$_fzf_cache" || "$_fzf_init" -nt "$_fzf_cache" || "$(command -v fzf)" -nt "$_fzf_cache" ]]; then
+  > "$_fzf_cache" < "$_fzf_init"
+  zcompile "$_fzf_cache"
+fi
+zsh-defer source "$_fzf_cache"
+unset _fzf_cache
+unset _fzf_init
+
 # zoxide
 _zoxide_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zoxide.zsh"
 if [[ ! -r "$_zoxide_cache" || "$(command -v zoxide)" -nt "$_zoxide_cache" ]]; then
   zoxide init zsh > "$_zoxide_cache"
   zcompile "$_zoxide_cache"
 fi
-source "$_zoxide_cache"
+zsh-defer source "$_zoxide_cache"
 unset _zoxide_cache
 
 # starship
@@ -72,6 +71,9 @@ if [[ ! -r "$_starship_cache" || "$_starship_config" -nt "$_starship_cache" || "
 fi
 source "$_starship_cache"
 unset _starship_cache _starship_config
+
+# options
+source ${ZRCDIR}/options.zsh
 
 # aliases
 source ${ZRCDIR}/alias.zsh
