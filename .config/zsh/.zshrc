@@ -53,6 +53,9 @@ zsh-defer source "$_fzf_cache"
 unset _fzf_cache
 unset _fzf_init
 
+# zeno
+source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/rc/plugins/zeno_keybinds.zsh"
+
 # zoxide
 _zoxide_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zoxide.zsh"
 if [[ ! -r "$_zoxide_cache" || "$(command -v zoxide)" -nt "$_zoxide_cache" ]]; then

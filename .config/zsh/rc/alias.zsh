@@ -1,6 +1,8 @@
 # alias
 # ls
-alias ls='ls -F --color=auto'
+alias ls='exa'
+# grep
+alias grep='rg'
 # # curl
 alias patto='curl parrot.live'
 alias weather='curl wttr.in/japan'

@@ -21,3 +21,6 @@ apply = ["defer"]
 [plugins.zsh-syntax-highlighting]
 github = "zdharma-continuum/fast-syntax-highlighting"
 
+[plugins.zeno]
+github = "yuki-yano/zeno.zsh"
+

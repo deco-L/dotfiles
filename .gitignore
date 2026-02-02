@@ -33,6 +33,8 @@
 !/.config/yazi/**/
 !/.config/zathura
 !/.config/zathura/**/
+!/.config/zeno
+!/.config/zeno/**
 !/.config/zsh
 !/.config/zsh/**/
 
