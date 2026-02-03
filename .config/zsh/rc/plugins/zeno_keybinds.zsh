@@ -40,7 +40,7 @@ if [[ -n $ZENO_LOADED ]]; then
 
   bindkey '^m' zeno-auto-snippet-and-accept-line
 
-  bindkey '^o' zeno-completion
+  bindkey '^i' zeno-completion
 
   bindkey '^xx' zeno-insert-snippet           # open snippet picker (fzf) and insert at cursor
 
@@ -49,13 +49,13 @@ if [[ -n $ZENO_LOADED ]]; then
   bindkey '^x^z' zeno-toggle-auto-snippet
 
   # preprompt bindings
-  bindkey '^xp' zeno-preprompt
-  bindkey '^xs' zeno-preprompt-snippet
+  # bindkey '^xp' zeno-preprompt
+  # bindkey '^xs' zeno-preprompt-snippet
   # Outside ZLE you can run `zeno-preprompt git {{cmd}}` or `zeno-preprompt-snippet foo`
   # to set the next prompt prefix; invoking them with an empty argument resets the state.
 
-  bindkey '^r' zeno-history-selection         # classic history widget
-  # bindkey '^r' zeno-smart-history-selection # smart history widget
+  # bindkey '^r' zeno-history-selection         # classic history widget
+  bindkey '^r' zeno-smart-history-selection # smart history widget
 
   # fallback if completion not matched
   # (default: fzf-completion if exists; otherwise expand-or-complete)

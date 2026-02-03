@@ -42,6 +42,9 @@ function _deferred_compinit() {
 }
 zsh-defer _deferred_compinit
 
+# zeno
+source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/rc/plugins/zeno_keybinds.zsh"
+
 # fzf
 _fzf_cache="${XDG_CACHE_HOME:-$HOME/.cache}/fzf_init.zsh"
 _fzf_init="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/rc/plugins/fzf_init.zsh"
@@ -52,9 +55,6 @@ fi
 zsh-defer source "$_fzf_cache"
 unset _fzf_cache
 unset _fzf_init
-
-# zeno
-source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/rc/plugins/zeno_keybinds.zsh"
 
 # zoxide
 _zoxide_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zoxide.zsh"
