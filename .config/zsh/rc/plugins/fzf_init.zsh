@@ -1,7 +1,7 @@
-source "${0:h}/fzf_keybinds.zsh"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/rc/plugins/fzf_keybinds.zsh"
 if [[ -n "${ZENO_ROOT:-}" ]]; then
   :
 else
-  source "${0:h}/fzf_completion.zsh"
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/rc/plugins/fzf_completion.zsh"
 fi
 
