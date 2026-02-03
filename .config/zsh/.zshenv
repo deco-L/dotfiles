@@ -14,6 +14,10 @@ export LC_CTYPE="${LANG}"
 # path
 export PATH="$PATH:$HOME/.cargo/bin"
 
+# bat
+export BAT_CONFIG_DIR="${XDG_CONFIG_HOME}/bat"
+export BAT_CONFIG_PATH="${BAT_CONFIG_DIR}/bat.conf"
+
 # editor
 export EDITOR="nvim"
 export GIT_EDITOR="${EDITOR}"

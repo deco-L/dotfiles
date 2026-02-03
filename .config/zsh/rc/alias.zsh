@@ -1,8 +1,11 @@
 # alias
+# cat
+alias cat='bat'
 # ls
-alias ls='exa'
+alias ls='eza --color=auto'
 # grep
-alias grep='rg'
+alias grep='rg -S --hidden'
+alias rg='rg -S --hidden'
 # # curl
 alias patto='curl parrot.live'
 alias weather='curl wttr.in/japan'
