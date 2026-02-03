@@ -1,5 +1,5 @@
 # if defined load the configuration file from there
-# export ZENO_HOME=~/.config/zeno
+export ZENO_HOME=~/.config/zeno
 
 # if disable deno cache command when plugin loaded
 # export ZENO_DISABLE_EXECUTE_CACHE_COMMAND=1
@@ -22,12 +22,10 @@
 # export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
 
 # default
-export ZENO_GIT_CAT="cat"
-# git file preview with color
-# export ZENO_GIT_CAT="bat --color=always"
+export ZENO_GIT_CAT="bat --color=always"
 
 # default
-export ZENO_GIT_TREE="tree"
+export ZENO_GIT_TREE="eza --color=auto --tree"
 # git folder preview with color
 # export ZENO_GIT_TREE="eza --tree"
 
@@ -42,7 +40,7 @@ if [[ -n $ZENO_LOADED ]]; then
 
   bindkey '^m' zeno-auto-snippet-and-accept-line
 
- # bindkey '^i' zeno-completion
+  bindkey '^o' zeno-completion
 
   bindkey '^xx' zeno-insert-snippet           # open snippet picker (fzf) and insert at cursor
 

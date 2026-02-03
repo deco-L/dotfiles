@@ -160,9 +160,9 @@ if [[ ${FZF_CTRL_R_COMMAND-x} != "" ]]; then
     echo "warning: FZF_CTRL_R_COMMAND is set to a custom command, but custom commands are not yet supported for CTRL-R" >&2
   fi
   zle     -N            fzf-history-widget
-  bindkey -M emacs '^R' fzf-history-widget
-  bindkey -M vicmd '^R' fzf-history-widget
-  bindkey -M viins '^R' fzf-history-widget
+#  bindkey -M emacs '^R' fzf-history-widget
+#  bindkey -M vicmd '^R' fzf-history-widget
+#  bindkey -M viins '^R' fzf-history-widget
 fi
 fi
 
@@ -569,7 +569,7 @@ fzf-completion() {
   # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
   tokens=(${(z)LBUFFER})
   if [ ${#tokens} -lt 1 ]; then
-    zle ${fzf_default_completion:-expand-or-complete}
+#    zle ${fzf_default_completion:-expand-or-complete}
     return
   fi
 
@@ -638,8 +638,8 @@ fzf-completion() {
 }
 
 # Normal widget
-zle     -N   fzf-completion
-bindkey '^I' fzf-completion
+  zle     -N   fzf-completion
+  bindkey '^I' fzf-completion
 fi
 
 } always {
