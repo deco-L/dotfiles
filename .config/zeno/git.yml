@@ -2,7 +2,7 @@ snippets:
 
   - name: git add
     keyword: ga
-    snippet: git add '{{pathspec}}'
+    snippet: git add {{pathspec}}
 
   - name: git status
     keyword: gs
