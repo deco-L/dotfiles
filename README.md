@@ -10,5 +10,6 @@
 - eza
 - ripgrep
 - fzf
+- zeno
 - zoxide
 - starship

@@ -1,0 +1,784 @@
+snippets:
+
+  - name: build
+    keyword: :build
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: chore
+    keyword: :chore
+    snippet: 󰉁
+    context:
+      lbuffer: '.*\s'
+
+  - name: ci
+    keyword: :ci
+    snippet: 󰁪
+    context:
+      lbuffer: '.*\s'
+
+  - name: docs
+    keyword: :docs
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: feat
+    keyword: :feat
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: fix
+    keyword: :fix
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: perf
+    keyword: :perf
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: refactor
+    keyword: :refactor
+    snippet: 󰑌
+    context:
+      lbuffer: '.*\s'
+
+  - name: revert
+    keyword: :revert
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: style
+    keyword: :style
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: test
+    keywork: :test
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# os
+  - name: linux
+    keyword: :linux
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: apple
+    keyword: :apple
+    snippet: 󰀵
+    context:
+      lbuffer: '.*\s'
+
+  - name: arch
+    keyword: :arch
+    snippet: 󰣇
+    context:
+      lbuffer: '.*\s'
+
+  - name: nix
+    keyword: :nix
+    snippet: 󱄅
+    context:
+      lbuffer: '.*\s'
+
+  - name: debian
+    keyword: :debian
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: fedora
+    keyword: :fedora
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: gentoo
+    keyword: :gentoo
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: kali
+    keyword: :kali
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: raspi
+    keyword: :raspi
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: windows
+    keyword: :windows
+    snippet: 󰖳
+    context:
+      lbuffer: '.*\s'
+
+# window manager
+  - name: hyprland
+    keyword: :hyprland
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: sway
+    keyword: :sway
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# editor
+  - name: neovim
+    keyword: :nvim
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# language
+  - name: c
+    keyword: :c
+    snippet: 󰙱
+    context:
+      lbuffer: '.*\s'
+
+  - name: cpp
+    keyword: :cpp
+    snippet: 󰙲
+    context:
+      lbuffer: '.*\s'
+
+  - name: csharp
+    keyword: :csharp
+    snippet: 󰌛
+    context:
+      lbuffer: '.*\s'
+
+  - name: css
+    keyword: :css
+    snippet: 󰌜
+    context:
+      lbuffer: '.*\s'
+
+  - name: fortran
+    keyword: :fortran
+    snippet: 󱈚
+    context:
+      lbuffer: '.*\s'
+
+  - name: go lang
+    keyword: :go
+    snippet: 󰟓
+    context:
+      lbuffer: '.*\s'
+
+  - name: haskell
+    keyword: :haskell
+    snippet: 󰲒
+    context:
+      lbuffer: '.*\s'
+
+  - name: html
+    keyword: :html
+    snippet: 󰌝
+    context:
+      lbuffer: '.*\s'
+
+  - name: java
+    keywork: :java
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: javascript
+    keywork: :js
+    snippet: 󰌞
+    context:
+      lbuffer: '.*\s'
+
+  - name: kotlin
+    keywork: :kotlin
+    snippet: 󱈙
+    context:
+      lbuffer: '.*\s'
+
+  - name: lisp
+    keywork: :lisp
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: lua
+    keywork: :lua
+    snippet: 󰢱
+    context:
+      lbuffer: '.*\s'
+
+  - name: markdown
+    keywork: :md
+    snippet: 󰍔
+    context:
+      lbuffer: '.*\s'
+
+  - name: php
+    keyword: :php
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: python
+    keyword: :py
+    snippet: 󰌠
+    context:
+      lbuffer: '.*\s'
+
+  - name: r
+    keyword: :r
+    snippet: 󰟔
+    context:
+      lbuffer: '.*\s'
+
+  - name: ruby
+    keyword: :ruby
+    snippet: 󰴭
+    context:
+      lbuffer: '.*\s'
+
+  - name: rust
+    keyword: :rust
+    snippet: 󱘗
+    context:
+      lbuffer: '.*\s'
+
+  - name: swift
+    keyword: :swift
+    snippet: 󰛥
+    context:
+      lbuffer: '.*\s'
+
+  - name: typescript
+    keyword: :ts
+    snippet: 󰛦
+    context:
+      lbuffer: '.*\s'
+
+  - name: xaml
+    keyword: :xaml
+    snippet: 󰙳
+    context:
+      lbuffer: '.*\s'
+
+  - name: zig lang
+    keyword: :zig
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# lang mascot
+  - name: ferris
+    keyword: ferris
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: gopher
+    keyword: :gopher
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# runtime
+  - name: node
+    keyword: :node
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: deno
+    keyword: :deno
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# framework
+  - name: electron
+    keyword: :electron
+    snippet: 󱀤
+    context:
+      lbuffer: '.*\s'
+
+# git
+  - name: github
+    keyword: :git
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: github inverted
+    keyword: :rgit
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name : github alt
+    keyword: :gitalt
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name : github square
+    keyword: :sgit
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: github actioin
+    keyword: :gitact
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# soft
+  - name: gnu
+    keyword: :gnu
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: tmux
+    keyword: :tmux
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# infra
+  - name: docker
+    keyword: docker
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: kubernetes
+    keyword: :k8s
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# data
+  - name: database
+    keyword: :db
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: mariadb
+    keyword: :maria
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: postgresql
+    keyword: :psql
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# cloud
+  - name: cloud
+    keyword: :cloud
+    snippet: 󰅣
+    context:
+      lbuffer: '.*\s'
+
+  - name: aws
+    keyword: :aws
+    snippet: 󰸏
+    context:
+      lbuffer: '.*\s'
+
+  - name: azure
+    keyword: :azure
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: google cloud
+    keyword: :gocloud
+    snippet: 󱇶
+    context:
+      lbuffer: '.*\s'
+
+# library
+  - name: react
+    keyword: :react
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# package manager
+  - name: npm
+    keyword: :npm
+    snippet: 󰛷
+    context:
+      lbuffer: '.*\s'
+  
+  - name: homebrew
+    keyword: brew
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# terminal
+  - name: console
+    keyword: :cli
+    snippet: 󰞷
+    context:
+      lbuffer: '.*\s'
+
+  - name: terminal
+    keyword: :term
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# shell
+  - name: bash
+    keyword: :bash
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+
+  - name: powershell
+    keyword: :pshell
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# ios
+  - name: android
+    keyword: :android
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# application
+  - name: blender
+    keyword: blender
+    snippet: 󰂫
+    context:
+      lbuffer: '.*\s'
+
+  - name: chrome
+    keyword: :chrome
+    snippet: 󰊯
+    context:
+      lbuffer: '.*\s'
+
+  - name: github application
+    keyword: :gitapp
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: reddit
+    keyword: :reddit
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: steam
+    keyword: :steam
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: twitter
+    keyword: :twitter
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: youtube
+    keyword: :youtube
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: instagram
+    keyword: :instagram
+    snippet: 󰋾
+    context:
+      lbuffer: '.*\s'
+
+# credit card
+  - name: amex
+    keyword: :ccamex
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: discover
+    keyword: :ccdiscover
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: jcb
+    keyword: :ccjcb
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: mastercard
+    keyword: :ccmaster
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: paypal
+    keyword: :paypal
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: stripe
+    keyword: :stripe
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: visa
+    keyword: :visa
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+# animal
+  - name: dog
+    keyword: :dog
+    snippet: 󰩃
+    context:
+      lbuffer: '.*\s'
+
+  - name: cat
+    keyword: :cat
+    snippet: 󰄛
+    context:
+      lbuffer: '.*\s'
+
+  - name: cow
+    keyword: :cow
+    snippet: 󰆚
+    context:
+      lbuffer: '.*\s'
+
+  - name: rabbit
+    keyword: :rabbit
+    snippet: 󱩡
+    context:
+      lbuffer: '.*\s'
+
+  - name: sheep
+    keyword: :sheep
+    snippet: 󰳆
+    context:
+      lbuffer: '.*\s'
+
+  - name: kurage
+    keyword: :kurage
+    snippet: 󰼂
+    context:
+      lbuffer: '.*\s'
+
+  - name: same
+    keyword: :same
+    snippet: 󱢺
+    context:
+      lbuffer: '.*\s'
+
+  - name: ghost
+    keyword: :ghost
+    snippet: 󰊠
+    context:
+      lbuffer: '.*\s'
+
+# game hardware
+  - name: playstation
+    keyword: :ps
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: switch
+    keyword: :switch
+    snippet: 󰟡
+    context:
+      lbuffer: '.*\s'
+
+# game
+  - name: battle net
+    keyword: :battlenet
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: biohazard
+    keyword: :bio
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: minecraft
+    keyword: :minecraft
+    snippet: 󰍳
+    context:
+      lbuffer: '.*\s'
+
+# unclassified
+  - name: good
+    keyword: :good
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: bad
+    keyword: :bad
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: chat
+    keyword: :chat
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: kasa
+    keyword: :kasa
+    snippet: 󰕊
+    context:
+      lbuffer: '.*\s'
+
+  - name: electric guiter
+    keyword: :guiter
+    snippet: 󰋄
+    context:
+      lbuffer: '.*\s'
+
+  - name: acoustic guiter
+    keyword: :aguiter
+    snippet: 󰝱
+    context:
+      lbuffer: '.*\s'
+
+  - name: guiter pick
+    keyword: :guiterpick
+    snippet: 󰋅
+    context:
+      lbuffer: '.*\s'
+
+  - name: sleep
+    keyword: :sleep
+    snippet: ⏾
+    context:
+      lbuffer: '.*\s'
+
+  - name: liquid
+    keyword: :liquid
+    snippet: 󱠦
+    context:
+      lbuffer: '.*\s'
+
+  - name: wizard
+    keyword: :wizard
+    snippet: 󱑷
+    context:
+      lbuffer: '.*\s'
+
+  - name: halloween
+    keyword: :halloween
+    snippet: 󰮣
+    context:
+      lbuffer: '.*\s'
+
+  - name: pentagram
+    keyword: :pwnta
+    snippet: 󱙧
+    context:
+      lbuffer: '.*\s'
+
+# neta
+  - name: hiragana
+    keyword: :hiragana
+    snippet: 󱌴
+    context:
+      lbuffer: '.*\s'
+
+  - name: katakana
+    keyword: :katakana
+    snippet: 󱌵
+    context:
+      lbuffer: '.*\s'
+
+  - name: itai
+    keyword: :itai
+    snippet: 󱠖
+    context:
+      lbuffer: '.*\s'
+
+  - name: lol
+    keyword: :lol
+    snippet: 󰚜
+    context:
+      lbuffer: '.*\s'
+
+  - name: LOL
+    keyword: :LOL
+    snippet: 󱈕
+    context:
+      lbuffer: '.*\s'
+
+  - name: chu
+    keyword: :chu
+    snippet: 󰱳
+    context:
+      lbuffer: '.*\s'
+
+  - name: sad
+    keyword: :sad
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+  - name: pow
+    keyword: :pow
+    snippet: 󱙵
+    context:
+      lbuffer: '.*\s'
+
+  - name: red
+    keyword: :red
+    snippet: 󱢇
+    context:
+      lbuffer: '.*\s'
+
+  - name: composer
+    keyword: composer
+    snippet: 
+    context:
+      lbuffer: '.*\s'
+
+

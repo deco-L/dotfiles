@@ -1,0 +1,65 @@
+snippets:
+
+  - name: git add
+    keyword: ga
+    snippet: git add {{pathspec}}
+
+  - name: git status
+    keyword: gs
+    snippet: git status --short --branch
+
+  - name: git commit message
+    keyword: gcm
+    snippet: git commit -m '{{commit_message}}'
+
+  - name: git commit message build
+    keyword: gcmb
+    snippet: git commit -m '{{commit_message}}  '
+
+  - name: git commit message chore
+    keyword: gcmch
+    snippet: git commit -m '{{commit_message}} 󰉁 '
+
+  - name: git commit message ci
+    keyword: gcmci
+    snippet: git commit -m '{{commit_message}} 󰁪 '
+
+  - name: git commit message docs
+    keyword: gcmd
+    snippet: git commit -m '{{commit_message}}  '
+
+  - name: git commit message feat
+    keyword: gcmfe
+    snippet: git commit -m '{{commit_message}}  '
+
+  - name: git commit message fix
+    keyword: gcmfi
+    snippet: git commit -m '{{commit_message}}  '
+
+  - name: git commit message perf
+    keyword: gcmp
+    snippet: git commit -m '{{commit_message}}  '
+
+  - name: git commit message refactor
+    keyword: gcmrf
+    snippet: git commit -m '{{commit_message}} 󰑌 '
+
+  - name: git commit message revert
+    keyword: gcmrv
+    snippet: git commit -m '{{commit_message}}  '
+
+  - name: git commit message style
+    keyword: gcms
+    snippet: git commit -m '{{commit_message}}  '
+
+  - name: git commit message test
+    keyword: gcmt
+    snippet: git commit -m '{{commit_message}}  '
+
+  - name: branch
+    keyword: B
+    snippet: git symbolic-ref --short HEAD
+    context:
+      lbuffer: '^git\s+checkout\s+'
+    evaluate: true
+
