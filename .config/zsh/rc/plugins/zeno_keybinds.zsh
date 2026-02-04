@@ -31,6 +31,7 @@ export ZENO_GIT_TREE="eza --color=auto --tree"
 
 if [[ -n $ZENO_LOADED ]]; then
   bindkey ' '  zeno-auto-snippet
+  bindkey '^x^n' zeno-snippet-next-placeholder
 
   # fallback if snippet not matched (default: self-insert)
   # export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
@@ -42,7 +43,7 @@ if [[ -n $ZENO_LOADED ]]; then
 
   bindkey '^i' zeno-completion
 
-  bindkey '^xx' zeno-insert-snippet           # open snippet picker (fzf) and insert at cursor
+  bindkey '^x^x' zeno-insert-snippet           # open snippet picker (fzf) and insert at cursor
 
   bindkey '^x '  zeno-insert-space
   bindkey '^x^m' accept-line
