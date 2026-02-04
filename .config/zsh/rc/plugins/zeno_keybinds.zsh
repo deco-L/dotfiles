@@ -42,7 +42,7 @@ if [[ -n $ZENO_LOADED ]]; then
 
   bindkey '^i' zeno-completion
 
-  bindkey '^xx' zeno-insert-snippet           # open snippet picker (fzf) and insert at cursor
+  bindkey '^x^x' zeno-insert-snippet           # open snippet picker (fzf) and insert at cursor
 
   bindkey '^x '  zeno-insert-space
   bindkey '^x^m' accept-line

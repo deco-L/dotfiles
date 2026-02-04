@@ -61,7 +61,7 @@ snippets:
       lbuffer: '.*\s'
 
   - name: test
-    keywork: :test
+    keyword: :test
     snippet: 
     context:
       lbuffer: '.*\s'
@@ -197,37 +197,37 @@ snippets:
       lbuffer: '.*\s'
 
   - name: java
-    keywork: :java
+    keyword: :java
     snippet: 
     context:
       lbuffer: '.*\s'
 
   - name: javascript
-    keywork: :js
+    keyword: :js
     snippet: 󰌞
     context:
       lbuffer: '.*\s'
 
   - name: kotlin
-    keywork: :kotlin
+    keyword: :kotlin
     snippet: 󱈙
     context:
       lbuffer: '.*\s'
 
   - name: lisp
-    keywork: :lisp
+    keyword: :lisp
     snippet: 
     context:
       lbuffer: '.*\s'
 
   - name: lua
-    keywork: :lua
+    keyword: :lua
     snippet: 󰢱
     context:
       lbuffer: '.*\s'
 
   - name: markdown
-    keywork: :md
+    keyword: :md
     snippet: 󰍔
     context:
       lbuffer: '.*\s'
@@ -288,7 +288,7 @@ snippets:
 
 # lang mascot
   - name: ferris
-    keyword: ferris
+    keyword: :ferris
     snippet: 
     context:
       lbuffer: '.*\s'
@@ -365,7 +365,7 @@ snippets:
 
 # infra
   - name: docker
-    keyword: docker
+    keyword: :docker
     snippet: 
     context:
       lbuffer: '.*\s'
@@ -435,7 +435,7 @@ snippets:
       lbuffer: '.*\s'
   
   - name: homebrew
-    keyword: brew
+    keyword: :brew
     snippet: 
     context:
       lbuffer: '.*\s'
@@ -476,7 +476,7 @@ snippets:
 
 # application
   - name: blender
-    keyword: blender
+    keyword: :blender
     snippet: 󰂫
     context:
       lbuffer: '.*\s'
@@ -776,9 +776,8 @@ snippets:
       lbuffer: '.*\s'
 
   - name: composer
-    keyword: composer
+    keyword: :composer
     snippet: 
     context:
       lbuffer: '.*\s'
-
 
