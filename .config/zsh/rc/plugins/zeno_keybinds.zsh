@@ -31,6 +31,7 @@ export ZENO_GIT_TREE="eza --color=auto --tree"
 
 if [[ -n $ZENO_LOADED ]]; then
   bindkey ' '  zeno-auto-snippet
+  bindkey '^x^n' zeno-snippet-next-placeholder
 
   # fallback if snippet not matched (default: self-insert)
   # export ZENO_AUTO_SNIPPET_FALLBACK=self-insert

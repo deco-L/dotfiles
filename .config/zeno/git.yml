@@ -10,51 +10,51 @@ snippets:
 
   - name: git commit message
     keyword: gcm
-    snippet: git commit -m '{{commit_message}}'
+    snippet: "git commit -m '{{commit_message}}'"
 
   - name: git commit message build
     keyword: gcmb
-    snippet: "git commit -m 'build{{commit_message}}  '"
+    snippet: "git commit -m 'build({{optional_scope}}): {{commit_message}}  '"
 
   - name: git commit message chore
     keyword: gcmch
-    snippet: git commit -m 'chore{{commit_message}} 󰉁 '
+    snippet: "git commit -m 'chore({{optional_scope}}): {{commit_message}} 󰉁 '"
 
   - name: git commit message ci
     keyword: gcmci
-    snippet: git commit -m 'ci{{commit_message}} 󰁪 '
+    snippet: "git commit -m 'ci({{optional_scope}}): {{commit_message}} 󰁪 '"
 
   - name: git commit message docs
     keyword: gcmd
-    snippet: git commit -m 'docs{{commit_message}}  '
+    snippet: "git commit -m 'docs({{optional_scope}}): {{commit_message}}  '"
 
   - name: git commit message feat
     keyword: gcmfe
-    snippet: git commit -m 'feat{{commit_message}}  '
+    snippet: "git commit -m 'feat({{optional_scope}}): {{commit_message}}  '"
 
   - name: git commit message fix
     keyword: gcmfi
-    snippet: git commit -m 'fix{{commit_message}}  '
+    snippet: "git commit -m 'fix({{optional_scope}}): {{commit_message}}  '"
 
   - name: git commit message perf
     keyword: gcmp
-    snippet: git commit -m 'perf{{commit_message}}  '
+    snippet: "git commit -m 'perf({{optional_scope}}): {{commit_message}}  '"
 
   - name: git commit message refactor
     keyword: gcmrf
-    snippet: git commit -m 'refactor{{commit_message}} 󰑌 '
+    snippet: "git commit -m 'refactor({{optional_scope}}): {{commit_message}} 󰑌 '"
 
   - name: git commit message revert
     keyword: gcmrv
-    snippet: git commit -m 'revert{{commit_message}}  '
+    snippet: "git commit -m 'revert({{optional_scope}}): {{commit_message}}  '"
 
   - name: git commit message style
     keyword: gcms
-    snippet: git commit -m 'style{{commit_message}}  '
+    snippet: "git commit -m 'style({{optional_scope}}): {{commit_message}}  '"
 
   - name: git commit message test
     keyword: gcmt
-    snippet: git commit -m 'test{{commit_message}}  '
+    snippet: "git commit -m 'test({{optional_scope}}): {{commit_message}}  '"
 
   - name: branch
     keyword: B
