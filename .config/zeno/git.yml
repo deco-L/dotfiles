@@ -4,6 +4,14 @@ snippets:
     keyword: ga
     snippet: git add {{pathspec}}
 
+  - name: git push
+    keyword: gp
+    snippet: git push
+
+  - name: git push new branch
+    keyword: gpnb
+    snippet: git push -u origin HEAD
+
   - name: git status
     keyword: gs
     snippet: git status --short --branch
