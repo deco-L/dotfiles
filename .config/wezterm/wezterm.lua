@@ -13,7 +13,7 @@ config.automatically_reload_config = true
 
 require("appearance").apply_to_config(config)
 require("fonts").apply_to_config(config)
-require("scrollback").apply_to_config(config, act, gui)
+require("keybind").apply_to_config(config, act)
 require("themes").apply_to_config(config)
 
 return config
