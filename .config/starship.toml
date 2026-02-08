@@ -1,1 +1,48 @@
 "$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+[battery]
+full_symbol = '🔋 '
+charging_symbol = '⚡️ '
+discharging_symbol = '💀 '
+
+[[battery.display]]
+threshold = 10
+style = 'bold red'
+
+[[battery.display]]
+threshold = 30
+style = 'bold yellow'
+discharging_symbol = '💦 '
+
+[c]
+format = 'via [$name $version]($style)'
+
+[cpp]
+disabled = false
+format = 'via [$name $version]($style)'
+
+[character]
+success_symbol = '[➜](bold green) '
+error_symbol = '[✗](bold red) '
+vimcmd_symbol = '[V](bold green) '
+
+[deno]
+format = 'via [🦕 $version](green bold) '
+
+[directory]
+truncation_length = 8
+truncation_symbol = '…/'
+
+[direnv]
+disabled = false
+
+[docker_context]
+format = 'via [🐋 $context](blue bold)'
+
+[git_branch]
+symbol = '🌱 '
+truncation_length = 4
+truncation_symbol = ''
+ignore_branches = ['master', 'main']

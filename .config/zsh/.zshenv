@@ -6,6 +6,9 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 export ZSHCONF="${XDG_CONFIG_HOME}/zsh"
 export ZRCDIR="${ZSHCONF}/rc"
 
+# starship
+export STARSHIP_CACHE="${XDG_CACHE_HOME}/starship"
+
 # lang
 export LANG="en_US.UTF-8"
 export LC_ALL="${LANG}"
