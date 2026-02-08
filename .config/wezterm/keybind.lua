@@ -58,6 +58,11 @@ local function copy_mode_keybinds(keys, key_tables, act)
 			}),
 		},
 		{
+			key = "[",
+			mods = "CTRL",
+			action = act.CopyMode("Close"),
+		},
+		{
 			key = "Space",
 			mods = "NONE",
 			action = act.CopyMode({ SetSelectionMode = "Cell" }),
