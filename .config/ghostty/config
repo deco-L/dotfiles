@@ -54,6 +54,8 @@ font-family = Hack
 font-size = 14
 # # font size keybind
 keybind = ctrl+shift+plus=increase_font_size:1
-# # tab keybinds
+# tab
 keybind = ctrl+shift+l=toggle_tab_overview
+# action
+keybind = global:ctrl+backquote=toggle_quick_terminal
 
