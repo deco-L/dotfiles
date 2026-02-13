@@ -8,6 +8,7 @@ $os\
 $username\
 [](bg:peach fg:red)\
 $directory\
+[](bg:peach fg:peach)\
 [](bg:yellow fg:peach)\
 $git_branch\
 $git_status\
@@ -90,6 +91,7 @@ symbol = " "
 format = 'via [ $version](green bold) '
 
 [directory]
+home_symbol = '~'
 style = "bg:peach fg:crust"
 format = "[ $path ]($style)"
 truncation_length = 3
@@ -173,6 +175,9 @@ symbol = " "
 
 [hostname]
 ssh_symbol = " "
+ssh_only = true
+format = "on [$symbol$hostname]($style) "
+style = "bold red"
 
 [java]
 symbol = " "
@@ -328,9 +333,6 @@ disabled = false
 time_format = "%R"
 style = "bg:lavender"
 format = '[[  $time ](fg:crust bg:lavender)]($style)'
-
-[line_break]
-disabled = true
 
 [character]
 disabled = false
