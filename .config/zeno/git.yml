@@ -64,6 +64,10 @@ snippets:
     keyword: gcmt
     snippet: "git commit -m 'test({{optional_scope}}): {{commit_message}}  '"
 
+  - name: git empty commit
+    keyword: gcme
+    snippet: "git commit --allow-empty -m '{{commit_message}} 󰼂 '"
+
   - name: branch
     keyword: B
     snippet: git symbolic-ref --short HEAD
