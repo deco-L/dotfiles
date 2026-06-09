@@ -25,3 +25,13 @@ export BAT_CONFIG_PATH="${BAT_CONFIG_DIR}/bat.conf"
 export EDITOR="nvim"
 export GIT_EDITOR="${EDITOR}"
 
+# fctix5
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+
+# go
+export GOPATH="$XDG_CACHE_HOME"/go
+
+# zeno
+export ZENO_DISABLE_EXECUTE_CACHE_COMMAND=1
+

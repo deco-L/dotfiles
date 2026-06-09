@@ -65,6 +65,17 @@ fi
 zsh-defer source "$_zoxide_cache"
 unset _zoxide_cache
 
+# direnv
+_direnv_cache="${XDG_CACHE_HOME:-$HOME/.cache}/direnv_hook.zsh"
+if [[ ! -r "$_direnv_cache" || "$(command -v direnv)" -nt "$_zoxide_cache" ]]; then
+  direnv hook zsh > "$_direnv_cache"
+  zcompile "$_direnv_cache"
+fi
+zsh-defer source "$_direnv_cache"
+unset _direnv_cache
+
+
+
 # starship
 _starship_cache="${XDG_CACHE_HOME:-$HOME/.cache}/starship.zsh"
 _starship_config="${XDG_CONFIG_HOME:-$HOME/.config}/starship.toml"

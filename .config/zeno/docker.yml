@@ -1,0 +1,9 @@
+snippets:
+  - name: node-package-lock-create
+    keyword: :front-package-lock
+    snippet: docker run --rm -v $(pwd)/srcs/frontend:/usr/src/app -v /usr/src/app/node_modules -w /usr/src/app node:24-slim npm install
+
+
+  - name: node-package-lock-create
+    keyword: :back-package-lock
+    snippet: docker run --rm -v $(pwd)/srcs/backend:/usr/src/app -v /usr/src/app/node_modules -w /usr/src/app node:24-slim npm install
