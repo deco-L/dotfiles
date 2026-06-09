@@ -10,9 +10,10 @@ alias rg='rg -S --hidden'
 alias patto='curl parrot.live'
 alias weather='curl wttr.in/japan'
 # # pbcopy & pbpaste
-alias pbcopy='wl-copy'
-alias pbpaste='wl-paste'
+# alias pbcopy='wl-copy'
+# alias pbpaste='wl-paste'
 # # git
 alias gitmain='sh ~/Script/gitmain.sh'
 alias gitsub='sh ~/Script/gitsub.sh'
+alias gitp='sh ~/Script/gitdeco.sh'
 alias gitlog='git log --graph --abbrev-commit --decorate'

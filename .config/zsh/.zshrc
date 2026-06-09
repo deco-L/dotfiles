@@ -19,7 +19,7 @@ SAVEHIST=100000
 zsh-defer source "$HOME/.config/zsh/rc/plugins/zsh-history-substring-search.zsh"
 
 # completion
-eval "$(dircolors)"
+eval "$(gdircolors)"
 zstyle ':completion:*' matcher-list "" 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*:descriptions' format '%B%F{blue}%d%f%b'
@@ -64,6 +64,26 @@ if [[ ! -r "$_zoxide_cache" || "$(command -v zoxide)" -nt "$_zoxide_cache" ]]; t
 fi
 zsh-defer source "$_zoxide_cache"
 unset _zoxide_cache
+
+# mise
+_mise_cache="${XDG_CACHE_HOME:-$HOME/.cache}/mise.zsh"
+if [[ ! -r "$_mise_cache" || "$(command -v mise)" -nt "$_mise_cache" ]]; then
+  mise activate zsh > "$_mise_cache"
+  zcompile "$_mise_cache"
+fi
+source "$_mise_cache"
+unset _mise_cache
+
+# direnv
+_direnv_cache="${XDG_CACHE_HOME:-$HOME/.cache}/direnv_hook.zsh"
+if [[ ! -r "$_direnv_cache" || "$(command -v direnv)" -nt "$_zoxide_cache" ]]; then
+  direnv hook zsh > "$_direnv_cache"
+  zcompile "$_direnv_cache"
+fi
+zsh-defer source "$_direnv_cache"
+unset _zoxide_cache
+
+
 
 # starship
 _starship_cache="${XDG_CACHE_HOME:-$HOME/.cache}/starship.zsh"

@@ -1,6 +1,28 @@
 local module = {}
 local search_mode = nil
 
+local function workspace_keybinds(keys, act, wezterm)
+	table.insert(keys, {
+		key = "s",
+		mods = "CTRL|SHIFT",
+		action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
+	})
+
+	table.insert(keys, {
+		key = "$",
+		mods = "CTRL|SHIFT",
+		action = act.PromptInputLine({
+			description = "Rename current workspace:",
+			-- 引数で貰った wezterm をそのままスマートに使う
+			action = wezterm.action_callback(function(window, _, line)
+				if line then
+					wezterm.mux.rename_workspace(window:active_workspace(), line)
+				end
+			end),
+		}),
+	})
+end
+
 local function search_mode_keybinds(keys, key_tables, act)
 	table.insert(keys, {
 		key = "f",
@@ -292,13 +314,14 @@ local function copy_mode_keybinds(keys, key_tables, act)
 	}
 end
 
-function module.apply_to_config(config, act)
+function module.apply_to_config(config, act, wezterm)
 	config.disable_default_key_bindings = false -- I might set it to true at some point.
 	config.keys = config.keys or {}
 	config.key_tables = config.key_tables or {}
 
 	search_mode_keybinds(config.keys, config.key_tables, act)
 	copy_mode_keybinds(config.keys, config.key_tables, act)
+	workspace_keybinds(config.keys, act, wezterm)
 end
 
 return module

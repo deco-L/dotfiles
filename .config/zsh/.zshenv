@@ -16,6 +16,7 @@ export LC_CTYPE="${LANG}"
 
 # path
 export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 # bat
 export BAT_CONFIG_DIR="${XDG_CONFIG_HOME}/bat"
@@ -25,3 +26,5 @@ export BAT_CONFIG_PATH="${BAT_CONFIG_DIR}/bat.conf"
 export EDITOR="nvim"
 export GIT_EDITOR="${EDITOR}"
 
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
