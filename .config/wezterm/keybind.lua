@@ -23,7 +23,12 @@ local function workspace_keybinds(keys, act, wezterm)
 	})
 end
 
-local function search_mode_keybinds(keys, key_tables, act)
+local function is_nvim(pane)
+	local process = pane:get_foreground_process_name()
+	return process and (process:find("nvim") ~= nil)
+end
+
+local function search_mode_keybinds(keys, key_tables, act, wezterm)
 	table.insert(keys, {
 		key = "f",
 		mods = "CTRL|SHIFT",
@@ -32,7 +37,24 @@ local function search_mode_keybinds(keys, key_tables, act)
 	table.insert(keys, {
 		key = "f",
 		mods = "CTRL",
-		action = act.Search({ CaseSensitiveString = "" }),
+		action = wezterm.action_callback(function(window, pane)
+			if is_nvim(pane) then
+				window:perform_action(act.SendKey({ key = "f", mods = "CTRL" }), pane)
+			else
+				window:perform_action(act.Search({ CaseSensitiveString = "" }), pane)
+			end
+		end),
+	})
+	table.insert(keys, {
+		key = "b",
+		mods = "CTRL",
+		action = wezterm.action_callback(function(window, pane)
+			if is_nvim(pane) then
+				window:perform_action(act.SendKey({ key = "b", mods = "CTRL" }), pane)
+			else
+				window:perform_action(act.ScrollByPage(-1), pane)
+			end
+		end),
 	})
 
 	key_tables.search_mode = {
@@ -319,7 +341,7 @@ function module.apply_to_config(config, act, wezterm)
 	config.keys = config.keys or {}
 	config.key_tables = config.key_tables or {}
 
-	search_mode_keybinds(config.keys, config.key_tables, act)
+	search_mode_keybinds(config.keys, config.key_tables, act, wezterm)
 	copy_mode_keybinds(config.keys, config.key_tables, act)
 	workspace_keybinds(config.keys, act, wezterm)
 end

@@ -6,6 +6,11 @@ vim.keymap.set("n", "<M-C-k>", "<cmd>resize -2<cr>", { desc = "Decrease window h
 vim.keymap.set("n", "<M-C-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<M-C-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
+-- Git branch fuzzy finder
+vim.keymap.set("n", "<leader>gc", function()
+  Snacks.picker.git_branches()
+end, { desc = "Git Branches" })
+
 -- 相対パスをコピー（例: src/utils/index.ts）
 vim.keymap.set("n", "<leader>cp", function()
   local path = vim.fn.expand("%:~:.")

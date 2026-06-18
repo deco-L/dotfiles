@@ -81,7 +81,7 @@ if [[ ! -r "$_direnv_cache" || "$(command -v direnv)" -nt "$_zoxide_cache" ]]; t
   zcompile "$_direnv_cache"
 fi
 zsh-defer source "$_direnv_cache"
-unset _zoxide_cache
+unset _dir_env_cache
 
 
 
@@ -107,3 +107,10 @@ source ${ZRCDIR}/bind.zsh
 # init
 fastfetch
 
+
+# bun completions
+[ -s "/Users/chiaki.sakamoto/.bun/_bun" ] && source "/Users/chiaki.sakamoto/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
