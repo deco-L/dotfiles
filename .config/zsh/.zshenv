@@ -16,7 +16,7 @@ export LC_CTYPE="${LANG}"
 
 # path
 export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="$HOME/.local/bin/:$PATH"
 
 # bat
