@@ -39,6 +39,8 @@
 !/.config/zeno/**
 !/.config/zsh
 !/.config/zsh/**/
+!/.config/pomo
+!/.config/pomo/**
 
 # allow files inside allowed dirs
 !**.gitignore
