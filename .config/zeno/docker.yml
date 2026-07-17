@@ -1,0 +1,39 @@
+completions:
+  # docker exec/logs/... <TAB> → 起動中コンテナを選択
+  - name: docker container
+    patterns:
+      - "^docker (exec|logs|attach|inspect|top|port)( .*)? $"
+    sourceCommand: "docker ps --format '{{.Names}}\\t{{.Image}}\\t{{.Status}}'"
+    options:
+      --prompt: "'Container> '"
+      --header: "'NAME\\tIMAGE\\tSTATUS'"
+    callback: "awk '{print $1}'"
+
+  # docker stop/restart/rm <TAB> → 複数選択可
+  - name: docker container multi
+    patterns:
+      - "^docker (stop|restart|rm|kill|pause|unpause)( .*)? $"
+    sourceCommand: "docker ps -a --format '{{.Names}}\\t{{.Image}}\\t{{.Status}}'"
+    options:
+      --multi: true
+      --prompt: "'Container> '"
+    callback: "awk '{print $1}' | tr '\\n' ' '"
+
+  # docker compose logs/exec/... <TAB> → サービス名を選択
+  - name: docker compose service
+    patterns:
+      - "^docker compose (logs|exec|restart|stop|start|up|build|run|pull|top)( .*)? $"
+    sourceCommand: "docker compose config --services 2>/dev/null"
+    options:
+      --multi: true
+      --prompt: "'Service> '"
+    callback: "tr '\\n' ' '"
+
+  # docker run/rmi など <TAB> → ローカルイメージを選択
+  - name: docker image
+    patterns:
+      - "^docker (run|rmi|push|history|save)( .*)? $"
+    sourceCommand: "docker images --format '{{.Repository}}:{{.Tag}}\\t{{.Size}}' | grep -v '<none>'"
+    options:
+      --prompt: "'Image> '"
+    callback: "awk '{print $1}'"

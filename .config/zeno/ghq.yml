@@ -1,0 +1,15 @@
+snippets:
+  # repo<Space> → ghq管理リポジトリをfzfで選んでcd
+  - name: ghq repo cd
+    keyword: repo
+    snippet: cd "$(ghq list --full-path | fzf --prompt='Repo> ' --preview='eza --color=always --tree --level=1 {}')"
+
+completions:
+  # ghq get 済みリポジトリを cd 先として選択: "cdr " と打ってTab
+  - name: ghq repo
+    patterns:
+      - "^cd -r $"
+    sourceCommand: "ghq list --full-path"
+    options:
+      --prompt: "'Repo> '"
+      --preview: "eza --color=always --tree --level=1 {}"

@@ -1,0 +1,35 @@
+snippets:
+  # prst<Space> → PRのマージ可否を確認(PR番号の位置でTabを押すとPR一覧から選べる)
+  - name: gh pr merge status
+    keyword: prst
+    snippet: >-
+      gh pr view {{pr}} --json baseRefName,mergeable,mergeStateStatus,state
+      --jq '{base:.baseRefName,mergeable:.mergeable,status:.mergeStateStatus,state:.state}'
+
+  # ghfile<Space> → 指定ファイルをリモートのブランチ側で触ったコミット一覧(fetch不要)
+  - name: gh file history on remote branch
+    keyword: ghfile
+    snippet: >-
+      gh api "repos/{owner}/{repo}/commits?path={{file}}&sha={{branch}}"
+      --jq '.[] | .sha[0:8] + " " + .commit.author.date[0:10] + " " + (.commit.message | split("\n")[0])'
+
+completions:
+  # gh pr checkout/view/diff/review <TAB> → オープンPR一覧から選択
+  - name: gh pr
+    patterns:
+      - "^gh pr (checkout|view|diff|review|merge|close)( .*)? $"
+    sourceCommand: "gh pr list --limit 100 --json number,title,author --template '{{range .}}{{.number}}\\t{{.title}}\\t{{.author.login}}\\n{{end}}'"
+    options:
+      --prompt: "'PR> '"
+      --preview: "gh pr view {1}"
+    callback: "awk '{print $1}'"
+
+  # gh issue view/close など <TAB> → イシュー一覧から選択
+  - name: gh issue
+    patterns:
+      - "^gh issue (view|close|edit|comment)( .*)? $"
+    sourceCommand: "gh issue list --limit 100 --json number,title --template '{{range .}}{{.number}}\\t{{.title}}\\n{{end}}'"
+    options:
+      --prompt: "'Issue> '"
+      --preview: "gh issue view {1}"
+    callback: "awk '{print $1}'"

@@ -71,3 +71,11 @@ snippets:
       lbuffer: '^git\s+checkout\s+'
     evaluate: true
 
+  # mtree<Space> → 作業ツリーを汚さず仮想マージで衝突チェック(git 2.38+)
+  # {{topic}} には HEAD やブランチ名、origin/xxx も入れられる
+  - name: git merge-tree conflict check
+    keyword: mtree
+    snippet: >-
+      git fetch origin && git merge-tree --write-tree origin/{{base}} {{topic}}
+      && echo '✅ 衝突なし' || echo '💥 衝突あり(上の出力が衝突ファイル)'
+
