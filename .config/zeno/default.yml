@@ -41,5 +41,5 @@ completions:
       --read0: true
       --prompt: "'Chdir> '"
       --preview: "cd {} && ls -a | sed '/^[.]*$/d'"
-    callback: "cut -z -c 3-"
+    callback: "gcut -z -c 3-"
     callbackZero: true # null termination is used in `callback` I/O
