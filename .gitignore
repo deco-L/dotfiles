@@ -41,6 +41,9 @@
 !/.config/zsh/**/
 !/.config/pomo
 !/.config/pomo/**
+!/.config/raycast
+!/.config/raycast/scripts
+!/.config/raycast/scripts/**
 
 # allow files inside allowed dirs
 !**.gitignore

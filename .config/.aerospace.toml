@@ -224,3 +224,9 @@ esc = 'mode main'
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
+
+# dropdown terminal (toggle-dropdown-terminal.sh) はタイルに組み込まず float させる
+[[on-window-detected]]
+if.app-id = 'com.github.wez.wezterm'
+if.window-title-regex-substring = 'dropdown-terminal'
+run = 'layout floating'
