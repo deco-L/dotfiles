@@ -16,14 +16,17 @@
 # - 同じワークスペースにいる/退避中: 今のワークスペースへ呼び出してフォーカス
 
 AEROSPACE=/opt/homebrew/bin/aerospace
-WEZTERM_GUI="/Applications/WezTerm.app/Contents/MacOS/wezterm-gui"
+WEZTERM_APP="/Applications/WezTerm.app"
 CONFIG="$HOME/.config/wezterm/dropdown.lua"
 STASH_WS="drop" # 退避先ワークスペース名
 
 WID=$("$AEROSPACE" list-windows --all --format '%{window-id}|%{window-title}' | awk -F'|' '$2 == "dropdown-terminal" {print $1; exit}')
 
 if [ -z "$WID" ]; then
-  nohup "$WEZTERM_GUI" --config-file "$CONFIG" >/dev/null 2>&1 &
+  # バイナリ直叩きだと macOS の TCC で WezTerm.app に付与した権限(FDA/Documents 等)が
+  # 効かず ~/Documents 配下で Permission denied になる。open 経由で LaunchServices に
+  # 起動させ、アプリバンドルの権限を継がせる。
+  open -na "$WEZTERM_APP" --args --config-file "$CONFIG"
   # on-window-detected がタイトル未設定のタイミングで取りこぼした場合の保険
   sleep 1
   title=$("$AEROSPACE" list-windows --focused --format '%{window-title}' 2>/dev/null)
