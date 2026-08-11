@@ -230,3 +230,21 @@ esc = 'mode main'
 if.app-id = 'com.github.wez.wezterm'
 if.window-title-regex-substring = 'dropdown-terminal'
 run = 'layout floating'
+
+# dropup terminal (toggle-dropup-terminal.sh) も同様に float させる
+[[on-window-detected]]
+if.app-id = 'com.github.wez.wezterm'
+if.window-title-regex-substring = 'dropup-terminal'
+run = 'layout floating'
+
+# dropleft terminal (toggle-dropleft-terminal.sh)
+[[on-window-detected]]
+if.app-id = 'com.github.wez.wezterm'
+if.window-title-regex-substring = 'dropleft-terminal'
+run = 'layout floating'
+
+# dropright terminal (toggle-dropright-terminal.sh)
+[[on-window-detected]]
+if.app-id = 'com.github.wez.wezterm'
+if.window-title-regex-substring = 'dropright-terminal'
+run = 'layout floating'
