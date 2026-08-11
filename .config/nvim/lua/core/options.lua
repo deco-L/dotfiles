@@ -5,6 +5,11 @@
 vim.opt.colorcolumn = "80"
 vim.o.mouse = ""
 
+-- prettier 設定ファイルがあるリポジトリでだけ prettier を使う。
+-- false(既定)だと biome/dprint/eslint だけのリポジトリや設定なしのリポジトリでも
+-- prettier の既定ルールで整形され、意図しない差分が出る。
+vim.g.lazyvim_prettier_needs_config = true
+
 -- lang
 vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
 vim.g.lazyvim_python_lsp = "pyright"

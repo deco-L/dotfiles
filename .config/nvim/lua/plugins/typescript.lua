@@ -9,6 +9,13 @@ return {
   -- 2. TypeScript LSP / ツールの有効化（関数ジャンプもこれで有効になります）
   { import = "lazyvim.plugins.extras.lang.typescript" },
 
+  -- 2.5 保存時整形を prettier に向ける。
+  -- これが無いと conform の formatters_by_ft に ts の登録が無く、
+  -- lsp_format = "fallback" により vtsls の LSP フォーマッタで整形されてしまう。
+  -- prettier を使うリポジトリでは保存するたびに prettier 違反が生まれるため揃える。
+  -- conform は node_modules/.bin/prettier を優先するのでリポジトリのバージョンが使われる。
+  { import = "lazyvim.plugins.extras.formatting.prettier" },
+
   -- 3. Treesitterの設定（git関連のパーサーを追加）
   {
     "nvim-treesitter/nvim-treesitter",
