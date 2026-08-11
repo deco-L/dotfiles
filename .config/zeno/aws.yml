@@ -1,3 +1,11 @@
+snippets:
+  # cfnparams<Space> → CloudFormation スタックの Parameters を key 昇順で一覧表示
+  # {{stack}} にカーソル、^x^n で {{profile}} へ移動。profile は Tab で補完も効く
+  - name: aws cfn stack parameters
+    keyword: cfnparams
+    snippet: |-
+      aws cloudformation describe-stacks --stack-name {{stack}} --profile {{profile}} --query "Stacks[0].Parameters" --output json | jq -r 'sort_by(.ParameterKey)[] | "\(.ParameterKey): \(.ParameterValue)"'
+
 completions:
   # aws <subcommand> --profile <TAB>
   - name: aws profile
