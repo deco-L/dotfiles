@@ -1,0 +1,11 @@
+completions:
+  # npm run <TAB> → package.json の scripts を選択(内容プレビュー付き)
+  - name: npm run script
+    patterns:
+      - "^(npm|pnpm|bun) run $"
+      - "^yarn( run)? $"
+    sourceCommand: "jq -r '.scripts | to_entries[] | \"\\(.key)\\t\\(.value)\"' package.json 2>/dev/null"
+    options:
+      --prompt: "'Script> '"
+      --preview: "jq -r '.scripts.\"{1}\"' package.json"
+    callback: "awk '{print $1}'"

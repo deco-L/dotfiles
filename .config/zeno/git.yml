@@ -64,14 +64,18 @@ snippets:
     keyword: gcmt
     snippet: "git commit -m 'test({{optional_scope}}): {{commit_message}}  '"
 
-  - name: git empty commit
-    keyword: gcme
-    snippet: "git commit --allow-empty -m '{{commit_message}} 󰼂 '"
-
   - name: branch
     keyword: B
     snippet: git symbolic-ref --short HEAD
     context:
       lbuffer: '^git\s+checkout\s+'
     evaluate: true
+
+  # mtree<Space> → 作業ツリーを汚さず仮想マージで衝突チェック(git 2.38+)
+  # {{topic}} には HEAD やブランチ名、origin/xxx も入れられる
+  - name: git merge-tree conflict check
+    keyword: mtree
+    snippet: >-
+      git fetch origin && git merge-tree --write-tree origin/{{base}} {{topic}}
+      && echo '✅ 衝突なし' || echo '💥 衝突あり(上の出力が衝突ファイル)'
 

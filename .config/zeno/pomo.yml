@@ -1,0 +1,31 @@
+snippets:
+  - name: pomo 5min
+    keyword: pomo5
+    snippet: pomo start -d 5m -p 1 "{{task}}"
+  - name: pomo 10min
+    keyword: pomo10
+    snippet: pomo start -d 10m -p 1 "{{task}}"
+  - name: pomo 15min
+    keyword: pomo15
+    snippet: pomo start -d 15m -p 1 "{{task}}"
+  - name: pomo 20min
+    keyword: pomo20
+    snippet: pomo start -d 20m -p 1 "{{task}}"
+  - name: pomo 25min
+    keyword: pomo25
+    snippet: pomo start -d 25m -p 1 "{{task}}"
+  - name: pomo 30min
+    keyword: pomo30
+    snippet: pomo start -d 30m -p 1 "{{task}}"
+  - name: pomo 35min
+    keyword: pomo35
+    snippet: pomo start -d 35m -p 1 "{{task}}"
+  - name: pomo 40min
+    keyword: pomo40
+    snippet: pomo start -d 40m -p 1 "{{task}}"
+  - name: pomo 45min
+    keyword: pomo45
+    snippet: pomo start -d 45m -p 1 "{{task}}"
+  - name: pomo 50min
+    keyword: pomo50
+    snippet: pomo start -d 50m -p 1 "{{task}}"

@@ -16,6 +16,7 @@ export LC_CTYPE="${LANG}"
 
 # path
 export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$HOME/.local/bin/:$PATH"
 
 # bat
 export BAT_CONFIG_DIR="${XDG_CONFIG_HOME}/bat"

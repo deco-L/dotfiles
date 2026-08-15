@@ -11,9 +11,10 @@ config.enable_wayland = false
 -- Automatically reload when it is detected as changing.
 config.automatically_reload_config = true
 
-require("appearance").apply_to_config(config)
+require("appearance").apply_to_config(config, wezterm)
 require("fonts").apply_to_config(config)
-require("keybind").apply_to_config(config, act)
+require("keybind").apply_to_config(config, act, wezterm)
 require("themes").apply_to_config(config)
+require("events").apply_to_config(config, wezterm)
 
 return config

@@ -1,0 +1,26 @@
+completions:
+  # aws <subcommand> --profile <TAB>
+  - name: aws profile
+    patterns:
+      - "^aws .*--profile $"
+    sourceCommand: "aws configure list-profiles"
+    options:
+      --prompt: "'AWS Profile> '"
+
+  # AWS_PROFILE=<TAB> (行頭 or export 付き)
+  - name: aws profile env
+    patterns:
+      - "^(export )?AWS_PROFILE=$"
+    sourceCommand: "aws configure list-profiles"
+    options:
+      --prompt: "'AWS Profile> '"
+
+  # aws sso login --profile <TAB> は上の aws profile でカバー
+
+  # aws --region <TAB>
+  - name: aws region
+    patterns:
+      - "^aws .*--region $"
+    sourceCommand: "aws ec2 describe-regions --query 'Regions[].RegionName' --output text 2>/dev/null | tr '\\t' '\\n' || printf 'ap-northeast-1\\nap-northeast-3\\nus-east-1\\nus-west-2'"
+    options:
+      --prompt: "'AWS Region> '"

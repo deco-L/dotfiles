@@ -65,6 +65,15 @@ fi
 zsh-defer source "$_zoxide_cache"
 unset _zoxide_cache
 
+# mise
+_mise_cache="${XDG_CACHE_HOME:-$HOME/.cache}/mise.zsh"
+if [[ ! -r "$_mise_cache" || "$(command -v mise)" -nt "$_mise_cache" ]]; then
+  mise activate zsh > "$_mise_cache"
+  zcompile "$_mise_cache"
+fi
+source "$_mise_cache"
+unset _mise_cache
+
 # direnv
 _direnv_cache="${XDG_CACHE_HOME:-$HOME/.cache}/direnv_hook.zsh"
 if [[ ! -r "$_direnv_cache" || "$(command -v direnv)" -nt "$_zoxide_cache" ]]; then

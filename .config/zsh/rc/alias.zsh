@@ -1,7 +1,6 @@
 # alias
 # cat
 alias cat='bat'
-alias catc='bat --style=plain'
 # ls
 alias ls='eza --color=auto'
 # grep
@@ -16,5 +15,5 @@ alias pbpaste='wl-paste'
 # # git
 alias gitmain='sh ~/Script/gitmain.sh'
 alias gitsub='sh ~/Script/gitsub.sh'
-alias gitwork='sh ~/Script/gitwork.sh'
+alias gitp='sh ~/Script/gitdeco.sh'
 alias gitlog='git log --graph --abbrev-commit --decorate'
