@@ -71,6 +71,22 @@ snippets:
       lbuffer: '^git\s+checkout\s+'
     evaluate: true
 
+  # gdpr<Space> → PR と同じ差分(マージベース起点)。3点(...)なので main が進んでも影響を受けない
+  # 2点(..)だと main 側の他人の変更が逆向きに混ざって当てにならない
+  - name: git diff like PR
+    keyword: gdpr
+    snippet: git diff origin/{{base}}...HEAD
+
+  # gdprf<Space> → 同じ差分のファイル名だけ
+  - name: git diff like PR name only
+    keyword: gdprf
+    snippet: git diff --name-only origin/{{base}}...HEAD
+
+  # gdprs<Space> → 同じ差分の増減サマリ
+  - name: git diff like PR stat
+    keyword: gdprs
+    snippet: git diff --stat origin/{{base}}...HEAD
+
   # mtree<Space> → 作業ツリーを汚さず仮想マージで衝突チェック(git 2.38+)
   # {{topic}} には HEAD やブランチ名、origin/xxx も入れられる
   - name: git merge-tree conflict check

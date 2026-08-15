@@ -13,6 +13,17 @@ snippets:
       gh api "repos/{owner}/{repo}/commits?path={{file}}&sha={{branch}}"
       --jq '.[] | .sha[0:8] + " " + .commit.author.date[0:10] + " " + (.commit.message | split("\n")[0])'
 
+  # prdf<Space> → PR の差分を GitHub 側から取る(ローカルの fetch 状態に依存しない正解)
+  # PR番号の位置で Tab を押すと PR 一覧から選べる。省略すると現在ブランチの PR
+  - name: gh pr diff
+    keyword: prdf
+    snippet: gh pr diff {{pr}}
+
+  # prdff<Space> → 同じくファイル名だけ
+  - name: gh pr diff name only
+    keyword: prdff
+    snippet: gh pr diff {{pr}} --name-only
+
 completions:
   # gh pr checkout/view/diff/review <TAB> → オープンPR一覧から選択
   - name: gh pr
