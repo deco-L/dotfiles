@@ -26,14 +26,20 @@ if [ -z "$WID" ]; then
   # 効かず ~/Documents 配下で Permission denied になる。open 経由で LaunchServices に
   # 起動させ、アプリバンドルの権限を継がせる。
   open -na "$WEZTERM_APP" --args --config-file "$CONFIG"
-  # on-window-detected がタイトル未設定のタイミングで取りこぼした場合の保険
-  sleep 1
-  title=$("$AEROSPACE" list-windows --focused --format '%{window-title}' 2>/dev/null)
-  if [ "$title" = "dropleft-terminal" ]; then
-    "$AEROSPACE" layout floating
-  fi
+  # on-window-detected はタイトル設定前に発火して取りこぼすことがある(タイル化して
+  # 他ウィンドウに干渉する原因)。タイトルが付くのを待って id 指定で floating を強制する。
+  for _ in $(seq 1 25); do
+    WID=$("$AEROSPACE" list-windows --all --format '%{window-id}|%{window-title}' | awk -F'|' '$2 == "dropleft-terminal" {print $1; exit}')
+    [ -n "$WID" ] && break
+    sleep 0.2
+  done
+  [ -n "$WID" ] && "$AEROSPACE" layout floating --window-id "$WID" 2>/dev/null
   exit 0
 fi
+
+# 生成時の floating 化が空振りしてタイルのまま残った個体への冪等な保険
+# (すでに floating ならエラーになるだけで無害)
+"$AEROSPACE" layout floating --window-id "$WID" 2>/dev/null
 
 FOCUSED=$("$AEROSPACE" list-windows --focused --format '%{window-id}' 2>/dev/null)
 CUR=$("$AEROSPACE" list-workspaces --focused)
