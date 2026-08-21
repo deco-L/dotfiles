@@ -29,6 +29,7 @@
 !/.config/script/**/
 !/.config/wezterm
 !/.config/wezterm/**/
+!/.config/wezterm/*.sh
 !/.config/xmobar
 !/.config/xmobar/**/
 !/.config/yazi
