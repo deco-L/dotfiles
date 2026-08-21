@@ -62,12 +62,12 @@ place_window() {
 }
 
 # 差し戻し情報を ACTIVE に記録($1 = pane id)。書式:
-# pane <TAB> 元workspace <TAB> 隣pane(なければ none) <TAB> 方向 <TAB> 比率%
+# pane <TAB> 元workspace <TAB> 元window <TAB> 隣pane(なければ none) <TAB> 方向 <TAB> 比率%
 record_geometry() {
   list_json | "$JQ" -r --argjson p "$1" '
     . as $all | ($all[] | select(.pane_id == $p)) as $c
     | ([$all[] | select(.tab_id == $c.tab_id and .pane_id != $c.pane_id)][0]) as $n
-    | if $n == null then "\($c.pane_id)\t\($c.workspace)\tnone\tright\t50"
+    | if $n == null then "\($c.pane_id)\t\($c.workspace)\t\($c.window_id)\tnone\tright\t50"
       else
         (if $c.top_row == $n.top_row
          then (if $c.left_col > $n.left_col then "right" else "left" end) + "\t"
@@ -75,7 +75,7 @@ record_geometry() {
          else (if $c.top_row > $n.top_row then "bottom" else "top" end) + "\t"
               + (($c.size.rows * 100 / ($c.size.rows + $n.size.rows)) | round | tostring)
          end) as $dp
-        | "\($c.pane_id)\t\($c.workspace)\t\($n.pane_id)\t\($dp)"
+        | "\($c.pane_id)\t\($c.workspace)\t\($c.window_id)\t\($n.pane_id)\t\($dp)"
       end' > "$ACTIVE"
 }
 
@@ -102,17 +102,22 @@ peek_pane() {
 }
 
 restore_pane() {
-  local c ws neighbor dir pct
-  IFS=$'\t' read -r c ws neighbor dir pct < "$ACTIVE"
+  local c ws win neighbor dir pct json
+  IFS=$'\t' read -r c ws win neighbor dir pct < "$ACTIVE"
   rm -f "$ACTIVE"
+  json=$(list_json)
   # せり出し中に pane が閉じられていたら何もしない
-  [ "$("$WEZTERM" cli list --format json | "$JQ" -r --argjson p "$c" '[.[]|select(.pane_id==$p)]|length')" = "1" ] || return 0
+  [ "$("$JQ" -r --argjson p "$c" '[.[]|select(.pane_id==$p)]|length' <<<"$json")" = "1" ] || return 0
   if [ "$neighbor" != "none" ] &&
-     [ "$("$WEZTERM" cli list --format json | "$JQ" -r --argjson p "$neighbor" '[.[]|select(.pane_id==$p)]|length')" = "1" ]; then
+     [ "$("$JQ" -r --argjson p "$neighbor" '[.[]|select(.pane_id==$p)]|length' <<<"$json")" = "1" ]; then
     "$WEZTERM" cli split-pane --pane-id "$neighbor" --"$dir" --percent "$pct" \
       --move-pane-id "$c" >/dev/null
+  elif [ "$("$JQ" -r --argjson w "$win" --argjson p "$c" \
+        '[.[]|select(.window_id==$w and .pane_id!=$p)]|length' <<<"$json")" -ge 1 ]; then
+    # 隣がいない(Claude 専用タブだった)/消えていた → 元のウィンドウのタブとして戻す
+    "$WEZTERM" cli move-pane-to-new-tab --pane-id "$c" --window-id "$win" >/dev/null
   else
-    # 戻し先が消えていたら元のワークスペースに独立ウィンドウとして戻す
+    # 元のウィンドウごと消えていたら元のワークスペースに独立ウィンドウとして戻す
     "$WEZTERM" cli move-pane-to-new-tab --pane-id "$c" --new-window --workspace "$ws" >/dev/null
   fi
   "$WEZTERM" cli activate-pane --pane-id "$c" 2>/dev/null
