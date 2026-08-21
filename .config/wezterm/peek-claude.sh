@@ -101,26 +101,45 @@ peek_pane() {
   "$WEZTERM" cli activate-pane --pane-id "$c" 2>/dev/null
 }
 
+# 差し戻し。ACTIVE は「移動に成功したときだけ」消す — 先に消すと、移動が
+# 一度でも失敗した時点で pane がせり出したまま迷子になる(実際に起きた)。
+# 失敗の詳細は $STATE_DIR/last-error に残す。
 restore_pane() {
-  local c ws win neighbor dir pct json
+  local c ws win neighbor dir pct json ok="" err="$STATE_DIR/last-error"
   IFS=$'\t' read -r c ws win neighbor dir pct < "$ACTIVE"
-  rm -f "$ACTIVE"
   json=$(list_json)
-  # せり出し中に pane が閉じられていたら何もしない
-  [ "$("$JQ" -r --argjson p "$c" '[.[]|select(.pane_id==$p)]|length' <<<"$json")" = "1" ] || return 0
+  if [ "$("$JQ" -r --argjson p "$c" '[.[]|select(.pane_id==$p)]|length' <<<"$json")" != "1" ]; then
+    # list の取りこぼしの可能性があるので一呼吸おいて再確認
+    sleep 0.3
+    json=$(list_json)
+    if [ "$("$JQ" -r --argjson p "$c" '[.[]|select(.pane_id==$p)]|length' <<<"$json")" != "1" ]; then
+      rm -f "$ACTIVE" # pane 自体が閉じられていた: 戻すものがない
+      return 0
+    fi
+  fi
+  : > "$err"
   if [ "$neighbor" != "none" ] &&
      [ "$("$JQ" -r --argjson p "$neighbor" '[.[]|select(.pane_id==$p)]|length' <<<"$json")" = "1" ]; then
     "$WEZTERM" cli split-pane --pane-id "$neighbor" --"$dir" --percent "$pct" \
-      --move-pane-id "$c" >/dev/null
-  elif [ "$("$JQ" -r --argjson w "$win" --argjson p "$c" \
+      --move-pane-id "$c" >/dev/null 2>>"$err" && ok=1
+  fi
+  if [ -z "$ok" ] &&
+     [ "$("$JQ" -r --argjson w "$win" --argjson p "$c" \
         '[.[]|select(.window_id==$w and .pane_id!=$p)]|length' <<<"$json")" -ge 1 ]; then
     # 隣がいない(Claude 専用タブだった)/消えていた → 元のウィンドウのタブとして戻す
-    "$WEZTERM" cli move-pane-to-new-tab --pane-id "$c" --window-id "$win" >/dev/null
-  else
-    # 元のウィンドウごと消えていたら元のワークスペースに独立ウィンドウとして戻す
-    "$WEZTERM" cli move-pane-to-new-tab --pane-id "$c" --new-window --workspace "$ws" >/dev/null
+    "$WEZTERM" cli move-pane-to-new-tab --pane-id "$c" --window-id "$win" >/dev/null 2>>"$err" && ok=1
   fi
-  "$WEZTERM" cli activate-pane --pane-id "$c" 2>/dev/null
+  if [ -z "$ok" ]; then
+    # 元のウィンドウごと消えていたら元のワークスペースに独立ウィンドウとして戻す
+    "$WEZTERM" cli move-pane-to-new-tab --pane-id "$c" --new-window --workspace "$ws" >/dev/null 2>>"$err" && ok=1
+  fi
+  if [ -n "$ok" ]; then
+    rm -f "$ACTIVE"
+    "$WEZTERM" cli activate-pane --pane-id "$c" 2>/dev/null
+  else
+    "$NOTIFIER" -title 'Claude Peek' -message "差し戻しに失敗(もう一度トグルで再試行。詳細: $err)" \
+      -group claude-peek 2>/dev/null || true
+  fi
 }
 
 # 複数候補: 選択用の floating ウィンドウを出し、その中で _menu を動かす
