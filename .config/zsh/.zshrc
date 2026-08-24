@@ -104,6 +104,9 @@ source ${ZRCDIR}/alias.zsh
 # bind
 source ${ZRCDIR}/bind.zsh
 
+# gh helpers (ghic / ghprc)
+zsh-defer source ${ZRCDIR}/gh.zsh
+
 # init
 fastfetch
 
