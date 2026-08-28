@@ -11,7 +11,8 @@
 #   (2分割レイアウトなら元通り。3枚以上の入れ子は最初の隣で近似)
 # - 候補が複数あるときは fzf の選択ウィンドウを先にせり出す
 #
-# 使い方: peek-claude.sh [toggle]   … Raycast から呼ぶトグル
+# 使い方: peek-claude.sh [toggle]   … せり出し/差し戻しのトグル(alt-e, Raycast)
+#         peek-claude.sh choose     … 候補が1つでも必ず選択メニューを出す(alt-shift-e)
 #         peek-claude.sh peek <id>  … pane id 直指定(デバッグ用)
 
 WEZTERM=/opt/homebrew/bin/wezterm
@@ -23,6 +24,7 @@ NOTIFIER=/opt/homebrew/bin/terminal-notifier
 STATE_DIR="$HOME/.local/state/claude-peek"
 ACTIVE="$STATE_DIR/active"   # せり出し中の pane の差し戻し情報(タブ区切り1行)
 PANES_LOG="$STATE_DIR/panes" # hooks が記録した通知元 pane id(新しい順)
+LOG="$STATE_DIR/last-run.log" # 直近の差し戻しで実行したコマンドと結果
 SELF="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
 mkdir -p "$STATE_DIR"
 
@@ -101,11 +103,31 @@ peek_pane() {
   "$WEZTERM" cli activate-pane --pane-id "$c" 2>/dev/null
 }
 
-# 差し戻し。ACTIVE は「移動に成功したときだけ」消す — 先に消すと、移動が
-# 一度でも失敗した時点で pane がせり出したまま迷子になる(実際に起きた)。
-# 失敗の詳細は $STATE_DIR/last-error に残す。
+# pane の現在値($2 = window_id / tab_id など)。無ければ空
+pane_field() {
+  list_json | "$JQ" -r --argjson p "$1" --arg f "$2" '.[]|select(.pane_id==$p)|.[$f]|tostring'
+}
+
+# $1 の $2 が $3 になるまで最大1秒待つ(mux への反映が非同期なため)
+pane_field_becomes() {
+  for _ in 1 2 3 4 5; do
+    [ "$(pane_field "$1" "$2")" = "$3" ] && return 0
+    sleep 0.2
+  done
+  return 1
+}
+
+run_logged() {
+  { echo "+ $*"; "$@" 2>&1; echo "  rc=$?"; } >> "$LOG"
+}
+
+# 差し戻し。2つの原則で組んである:
+# - ACTIVE は「差し戻せたときだけ」消す(先に消すと失敗時に pane が迷子になる)
+# - 各手段の成否は終了コードではなく「実際にそこへ着地したか」で判定する。
+#   終了コードだけ見ていた頃、失敗と誤判定して次の手段が pane を二重に動かし、
+#   別ウィンドウへ飛ばしてしまう事故が起きた。
 restore_pane() {
-  local c ws win neighbor dir pct json ok="" err="$STATE_DIR/last-error"
+  local c ws win neighbor dir pct json ok="" ntab cur
   IFS=$'\t' read -r c ws win neighbor dir pct < "$ACTIVE"
   json=$(list_json)
   if [ "$("$JQ" -r --argjson p "$c" '[.[]|select(.pane_id==$p)]|length' <<<"$json")" != "1" ]; then
@@ -117,27 +139,32 @@ restore_pane() {
       return 0
     fi
   fi
-  : > "$err"
-  if [ "$neighbor" != "none" ] &&
-     [ "$("$JQ" -r --argjson p "$neighbor" '[.[]|select(.pane_id==$p)]|length' <<<"$json")" = "1" ]; then
-    "$WEZTERM" cli split-pane --pane-id "$neighbor" --"$dir" --percent "$pct" \
-      --move-pane-id "$c" >/dev/null 2>>"$err" && ok=1
+  : > "$LOG"
+  # 1. 元の split へ(隣が生きているとき)
+  ntab=$("$JQ" -r --argjson p "$neighbor" '.[]|select(.pane_id==$p)|.tab_id|tostring' <<<"$json")
+  if [ "$neighbor" != "none" ] && [ -n "$ntab" ]; then
+    run_logged "$WEZTERM" cli split-pane --pane-id "$neighbor" --"$dir" --percent "$pct" \
+      --move-pane-id "$c"
+    pane_field_becomes "$c" tab_id "$ntab" && ok=1
   fi
+  # 2. 隣がいない(Claude 専用タブだった)/消えた → 元のウィンドウのタブとして戻す
   if [ -z "$ok" ] &&
      [ "$("$JQ" -r --argjson w "$win" --argjson p "$c" \
         '[.[]|select(.window_id==$w and .pane_id!=$p)]|length' <<<"$json")" -ge 1 ]; then
-    # 隣がいない(Claude 専用タブだった)/消えていた → 元のウィンドウのタブとして戻す
-    "$WEZTERM" cli move-pane-to-new-tab --pane-id "$c" --window-id "$win" >/dev/null 2>>"$err" && ok=1
+    run_logged "$WEZTERM" cli move-pane-to-new-tab --pane-id "$c" --window-id "$win"
+    pane_field_becomes "$c" window_id "$win" && ok=1
   fi
+  # 3. 元のウィンドウごと消えていた → 元のワークスペースに独立ウィンドウとして戻す
   if [ -z "$ok" ]; then
-    # 元のウィンドウごと消えていたら元のワークスペースに独立ウィンドウとして戻す
-    "$WEZTERM" cli move-pane-to-new-tab --pane-id "$c" --new-window --workspace "$ws" >/dev/null 2>>"$err" && ok=1
+    cur=$(pane_field "$c" window_id)
+    run_logged "$WEZTERM" cli move-pane-to-new-tab --pane-id "$c" --new-window --workspace "$ws"
+    [ "$(pane_field "$c" window_id)" != "$cur" ] && ok=1
   fi
   if [ -n "$ok" ]; then
     rm -f "$ACTIVE"
     "$WEZTERM" cli activate-pane --pane-id "$c" 2>/dev/null
   else
-    "$NOTIFIER" -title 'Claude Peek' -message "差し戻しに失敗(もう一度トグルで再試行。詳細: $err)" \
+    "$NOTIFIER" -title 'Claude Peek' -message "差し戻しに失敗(もう一度トグルで再試行。詳細: $LOG)" \
       -group claude-peek 2>/dev/null || true
   fi
 }
@@ -172,6 +199,11 @@ cmd_menu() {
   "$WEZTERM" cli kill-pane --pane-id "$WEZTERM_PANE" 2>/dev/null
 }
 
+no_candidates() {
+  "$NOTIFIER" -title 'Claude Peek' -message '対象の Claude セッションがありません' \
+    -group claude-peek 2>/dev/null || true
+}
+
 cmd_toggle() {
   if [ -f "$ACTIVE" ]; then
     restore_pane
@@ -181,8 +213,7 @@ cmd_toggle() {
   candidates=$(live_candidates)
   n=$(printf '%s' "$candidates" | grep -c . || true)
   if [ "$n" -eq 0 ]; then
-    "$NOTIFIER" -title 'Claude Peek' -message '対象の Claude セッションがありません' \
-      -group claude-peek 2>/dev/null || true
+    no_candidates
   elif [ "$n" -eq 1 ]; then
     peek_pane "$candidates"
   else
@@ -190,10 +221,21 @@ cmd_toggle() {
   fi
 }
 
+# 候補が1つでも必ず選択メニューを出す(せり出し中なら先に差し戻してから)
+cmd_choose() {
+  [ -f "$ACTIVE" ] && restore_pane
+  if [ -z "$(live_candidates)" ]; then
+    no_candidates
+    exit 0
+  fi
+  open_chooser
+}
+
 case "${1:-toggle}" in
   toggle) cmd_toggle ;;
+  choose) cmd_choose ;;
   peek) peek_pane "$2" ;;
   restore) restore_pane ;;
   _menu) cmd_menu ;;
-  *) echo "usage: $0 [toggle|peek <pane-id>|restore]" >&2; exit 1 ;;
+  *) echo "usage: $0 [toggle|choose|peek <pane-id>|restore]" >&2; exit 1 ;;
 esac
