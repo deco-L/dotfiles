@@ -11,8 +11,8 @@
 #   (2分割レイアウトなら元通り。3枚以上の入れ子は最初の隣で近似)
 # - 候補が複数あるときは fzf の選択ウィンドウを先にせり出す
 #
-# 使い方: peek-claude.sh [toggle]   … せり出し/差し戻しのトグル(alt-e, Raycast)
-#         peek-claude.sh choose     … 候補が1つでも必ず選択メニューを出す(alt-shift-e)
+# 使い方: peek-claude.sh [toggle]   … せり出し/差し戻しのトグル(ctrl-alt-c, Raycast)
+#         peek-claude.sh choose     … 候補が1つでも必ず選択メニューを出す(ctrl-alt-shift-c)
 #         peek-claude.sh peek <id>  … pane id 直指定(デバッグ用)
 
 WEZTERM=/opt/homebrew/bin/wezterm
