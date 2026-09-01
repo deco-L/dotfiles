@@ -223,7 +223,12 @@ cmd_toggle() {
 
 # 候補が1つでも必ず選択メニューを出す(せり出し中なら先に差し戻してから)
 cmd_choose() {
-  [ -f "$ACTIVE" ] && restore_pane
+  if [ -f "$ACTIVE" ]; then
+    restore_pane
+    # 差し戻しに失敗したまま進むと、次の選択が ACTIVE を上書きして
+    # 失敗した子の復元情報を失う(=迷子)ので、ここで止める
+    [ -f "$ACTIVE" ] && exit 0
+  fi
   if [ -z "$(live_candidates)" ]; then
     no_candidates
     exit 0
