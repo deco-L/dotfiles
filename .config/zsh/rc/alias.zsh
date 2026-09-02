@@ -21,10 +21,11 @@ scratch() {
     nvim -c 'setlocal buftype=nofile bufhidden=hide noswapfile' -c 'file scratch' -
   fi
 }
-# claude-sound: Claude Code の完了/確認待ち通知の音を on/off する
-# (~/.claude/hooks/claude-notify.sh がこのフラグファイルを見る。引数なしはトグル)
+# claude-sound: Claude Code の完了/確認待ち通知の音を on/off・変更する
+# (~/.claude/hooks/claude-notify.sh がフラグファイルを見る。中身が音名)
+# 引数なし: トグル / on / off / pick: fzf で試聴しながら選ぶ / <音名>: 直接指定
 claude-sound() {
-  local flag="$HOME/.local/state/claude-notify/sound-on"
+  local flag="$HOME/.local/state/claude-notify/sound-on" dir=/System/Library/Sounds s
   case "${1:-toggle}" in
     on) mkdir -p "${flag:h}" && touch "$flag" ;;
     off) rm -f "$flag" ;;
@@ -35,9 +36,28 @@ claude-sound() {
         mkdir -p "${flag:h}" && touch "$flag"
       fi
       ;;
-    *) echo "usage: claude-sound [on|off|toggle]" >&2; return 1 ;;
+    pick)
+      s=$(command ls "$dir" | sed 's/\.aiff$//' |
+        fzf --prompt='sound> ' --header='カーソル移動で試聴 / Enter で決定' \
+            --preview "afplay $dir/{}.aiff" --preview-window=up,1) || return 0
+      mkdir -p "${flag:h}" && print -r -- "$s" > "$flag"
+      ;;
+    *)
+      if [ -f "$dir/$1.aiff" ]; then
+        mkdir -p "${flag:h}" && print -r -- "$1" > "$flag"
+        afplay "$dir/$1.aiff" >/dev/null 2>&1 &
+      else
+        echo "usage: claude-sound [on|off|toggle|pick|<音名>]" >&2
+        echo "音名の候補: $(command ls "$dir" | sed 's/\.aiff$//' | paste -sd' ' -)" >&2
+        return 1
+      fi
+      ;;
   esac
-  if [ -f "$flag" ]; then echo "claude 通知音: on"; else echo "claude 通知音: off"; fi
+  if [ -f "$flag" ]; then
+    echo "claude 通知音: on ($(head -1 "$flag" | grep . || echo Glass))"
+  else
+    echo "claude 通知音: off"
+  fi
 }
 # # git
 alias gitmain='sh ~/Script/gitmain.sh'
