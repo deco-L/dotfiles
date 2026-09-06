@@ -179,16 +179,41 @@ open_chooser() {
   place_window "$pane_id"
 }
 
-# 選択ウィンドウの中身。選んだ pane を自分のウィンドウへ引き込み、自分は消える
+# 選択ウィンドウの中身。Enter = 選んだ pane を自分のウィンドウへ引き込む(せり出し)、
+# Ctrl-G = その pane のワークスペースへ移動(通知クリックと同じ経路)。どちらも自分は消える
 cmd_menu() {
-  local json sel c win
+  local json out key sel c win src
   json=$(list_json)
-  sel=$(live_candidates | while IFS= read -r p; do
-      "$JQ" -r --argjson p "$p" '.[]|select(.pane_id==$p)|"\(.pane_id)\t[\(.workspace)]\t\(.title)"' <<<"$json"
-    done | "$FZF" --delimiter='\t' --with-nth=2,3 --prompt='claude session> ' \
-                  --header='どのセッションをせり出す? (Esc でキャンセル)')
+  # 一覧の行は claude-sessions が作る(状態 ⏳待ち/✅完了・経過時間・何で止まっているかを含み、
+  # 待ちが上・待たせている順に並ぶ)。使えなければ従来どおり workspace + title で並べる。
+  src=''
+  if [ -x "$HOME/.local/bin/claude-sessions" ]; then
+    src=$("$HOME/.local/bin/claude-sessions" --fzf-lines 2>/dev/null)
+  fi
+  if [ -z "$src" ]; then
+    src=$(live_candidates | while IFS= read -r p; do
+        "$JQ" -r --argjson p "$p" '.[]|select(.pane_id==$p)|"\(.pane_id)\t[\(.workspace)]\t\(.title)"' <<<"$json"
+      done)
+  fi
+  # --expect: どのキーで確定したかが出力の1行目に入る(Enter なら空行)。2行目が選択行
+  out=$(printf '%s\n' "$src" | "$FZF" --delimiter='\t' --with-nth=2.. \
+                  --prompt='claude session> ' \
+                  --expect=ctrl-g \
+                  --header='Enter: ここにせり出す / C-g: そのワークスペースへ移動 / Esc: キャンセル')
+  key=$(sed -n '1p' <<<"$out")
+  sel=$(sed -n '2p' <<<"$out")
   c=$(printf '%s' "$sel" | cut -f1)
   if [ -z "$c" ]; then
+    "$WEZTERM" cli kill-pane --pane-id "$WEZTERM_PANE" 2>/dev/null
+    exit 0
+  fi
+  if [ "$key" = "ctrl-g" ]; then
+    # せり出さず、そのセッションのいるワークスペースへ切り替えてフォーカスする。
+    # focus スクリプトは「アクティブワークスペースの pane の tty」に SetUserVar を
+    # 書き込む方式で、その tty がこの chooser 自身のことがある。処理前に自分を
+    # kill すると切替が失われるので、一呼吸おいてから消える
+    "$HOME/.claude/hooks/wezterm-focus-pane.sh" "$c"
+    sleep 0.3
     "$WEZTERM" cli kill-pane --pane-id "$WEZTERM_PANE" 2>/dev/null
     exit 0
   fi
