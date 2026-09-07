@@ -1,4 +1,23 @@
+snippets:
+  # dpsf<Space> → format 付き docker ps。{{fmt}} の位置で Tab を押すとカラムを複数選択できる
+  - name: docker ps format
+    keyword: dpsf
+    snippet: docker ps --format 'table {{fmt}}'
+
 completions:
+  # dpsf の {{fmt}} 位置で <TAB> → 表示カラムを複数選択して format 文字列に組み立てる
+  # 並び順は選択順ではなくこのリストの順(よく使う順に並べてある)
+  - name: docker ps format columns
+    patterns:
+      - "docker ps.*--format 'table $"
+    sourceCommand: "printf 'ID\\nNames\\nImage\\nStatus\\nPorts\\nRunningFor\\nCreatedAt\\nSize\\nCommand\\nNetworks\\nMounts\\nState\\nLabels\\n'"
+    options:
+      --multi: true
+      --prompt: "'Columns> '"
+      --header: "'Tab で複数選択 → Enter'"
+    # {{.ID}}\t{{.Names}} の形に変換(\t の実体はバックスラッシュ+t の2文字。docker 側が解釈する)
+    callback: "awk '{printf \"{{.%s}}\\\\t\", $1}' | sed 's/\\\\t$//'"
+
   # docker exec/logs/... <TAB> → 起動中コンテナを選択
   - name: docker container
     patterns:
