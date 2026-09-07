@@ -1,6 +1,11 @@
-# NOTE: 「docker ps のカラムを fzf で選ぶ」は zeno でなく zsh 関数 dpsf (alias.zsh)。
+# NOTE: 「docker ps のカラムを fzf で選ぶ」本体は zsh 関数 dpsf (alias.zsh)。
 # zeno の補完挿入は必ず (q) エスケープされるため、{{.ID}} のような文字列を
 # クォートの中に挿入する用途には使えない(\{\{.ID\}\} になる)。
+# ここでは一覧から呼べる入り口(dpsf の1語挿入)だけを登録する。
+
+snippets:
+  - name: docker ps format columns (dpsf, fzf でカラム選択)
+    snippet: dpsf
 
 completions:
   # docker exec/logs/... <TAB> → 起動中コンテナを選択
