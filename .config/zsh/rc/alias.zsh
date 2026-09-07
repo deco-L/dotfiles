@@ -21,6 +21,18 @@ scratch() {
     nvim -c 'setlocal buftype=nofile bufhidden=hide noswapfile' -c 'file scratch' -
   fi
 }
+# dpsf: docker ps の表示カラムを fzf で複数選択し、完成したコマンドを
+# 編集バッファに置く(そのまま Enter で実行、編集も履歴残しも可)。
+# zeno のスニペットにしなかったのは、zeno の補完挿入が必ず (q) エスケープされ、
+# {{.ID}} をクォート内に挿入できないため。
+dpsf() {
+  local cols fmt
+  cols=$(printf '%s\n' ID Names Image Status Ports RunningFor CreatedAt Size Command Networks Mounts State Labels |
+    fzf --multi --prompt='Columns> ' --header='Tab で複数選択 → Enter') || return 0
+  [ -n "$cols" ] || return 0
+  fmt=$(printf '%s\n' "$cols" | awk '{printf "{{.%s}}\\t", $1}' | sed 's/\\t$//')
+  print -z "docker ps --format 'table ${fmt}'"
+}
 # claude-sound: Claude Code の完了/確認待ち通知の音を on/off・変更する
 # (~/.claude/hooks/claude-notify.sh がフラグファイルを見る。中身が音名)
 # 引数なし: トグル / on / off / pick: fzf で試聴しながら選ぶ / <音名>: 直接指定
