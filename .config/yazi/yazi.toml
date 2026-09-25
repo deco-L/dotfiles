@@ -3,6 +3,7 @@ show_hidden=true
 
 [opener]
 play = [
+  { run = 'open "$@"', orphan = true, for = "macos" },
   { run = 'mpv "$@"', orphan = true, for = "unix" }
 ]
 
@@ -11,15 +12,18 @@ edit = [
 ]
 
 image = [
+  { run = 'open "$@"', orphan = true, for = "macos" },
   { run = 'swayimg -f "$@" "./"', orphan = true, for = "unix" }
 ]
 
 pdf = [
+  { run = 'open "$@"', orphan = true, for = "macos" },
   { run = 'zathura "$@"', orphan = true, for = "unix" }
 ]
 
 open = [
-	{ run = 'dolphin "$@"', desc = "dolphin" }
+  { run = 'open -R "$@"', desc = "Finder で表示", for = "macos" },
+  { run = 'dolphin "$@"', desc = "dolphin", for = "unix" }
 ]
 
 [open]
