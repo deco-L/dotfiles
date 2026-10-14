@@ -5,6 +5,10 @@ end
 return {
   {
     "mistweaverco/kulala.nvim",
+    -- v6.0.0 以降は kulala-core が private 化され、ライセンストークンが必須。
+    -- トークン不要で動く最後のリリースが v5.3.4（2026-02-08）。
+    -- 上げるときは lazy-lock.json も :Lazy update kulala.nvim で更新すること。
+    tag = "v5.3.4",
     -- Load before session save/restore so VimLeavePre and SessionLoadPost hooks are registered.
     event = { "SessionLoadPost", "VimLeavePre" },
     keys = {
@@ -12,51 +16,8 @@ return {
       { "<leader>Ra", desc = "Send all requests" },
       { "<leader>Rb", desc = "Open scratchpad" },
     },
-    -- See opts.lsp.enforce_external_script_naming_convention
-    -- to restrict LSP capabilities to *.http, *.http.js, *.http.ts and *.http.lua files.
-    ft = { "http", "rest", "javascript", "lua" },
+    ft = { "http", "rest" },
     opts = {
-      kulala_core = {
-        -- Optional path to the kulala-core executable
-        -- (https://github.com/mistweaverco/kulala-core).
-        -- When set, this path is used exclusively.
-        -- When nil (default), auto-download and
-        -- use kulala-core from GitHub releases based on the user's OS and architecture.
-        path = nil,
-        -- Subprocess timeout (ms) for kulala-core.
-        -- Default is 60000 (1 minute).
-        -- 0 disables the vim.system timeout.
-        timeout = 60000,
-        -- Optional override for kulala-core persistence
-        -- (cookies, OAuth, prompts).
-        -- Default matches kulala-core CLI:
-        -- - Linux: ~/.local/share/kulala-core
-        --   or $XDG_DATA_HOME/kulala-core
-        -- - macOS: ~/Library/Application
-        --   or Support/kulala-core
-        -- - Windows: %APPDATA%\kulala-core
-        data_dir = nil,
-        -- Optional override for download url
-        download_url = "https://github.com/mistweaverco/kulala-core/releases/download/%s/%s",
-        -- "curl" or "wget" or full path to "curl" or "wget" executable.
-        download_tool = "curl",
-      },
-      -- Restore request history and UI after sourcing a vim session.
-      -- Requires `set sessionoptions+=globals` in your Neovim config.
-      session = {
-        restore = true,
-      },
-      treesitter = {
-        -- enable/disable kulala.nvim own
-        -- handling of tree-sitter parser and queries for HTTP scripts
-        -- like downloading, building, and installing the parser and queries.
-        -- disable to manage the parser and queries yourself.
-        enable = true,
-        -- path to tree-sitter CLI, if not in PATH
-        -- if enable is false, this is not used
-        -- required for building the parser from the included grammar
-        cli_path = "tree-sitter",
-      },
       -- dev, test, prod, can be anything
       -- see: https://learn.microsoft.com/en-us/aspnet/core/test/http-files?view=aspnetcore-8.0#environment-files
       default_env = "default",
@@ -65,17 +26,12 @@ return {
       -- enable reading vscode rest client environment variables
       vscode_rest_client_environmentvars = false,
 
-      -- Response body pretty-printing
-      response_format = {
-        indent = 2,
-        expand_tabs = true,
-        sort_keys = false,
-      },
       ui = {
         -- display mode: possible values: "split", "float"
         display_mode = "split",
-        -- split direction: possible values: "above", "right", "below", "left", fun(): "above"|"right"|"below"|"left"
-        split_direction = "right",
+        -- split direction: v5 は "vertical" | "horizontal"
+        -- ("right" を渡すと vertical と一致せず below になる)
+        split_direction = "vertical",
         -- window options to override win_config: width/height/split/vertical.., buffer/window options
         win_opts = { bo = {}, wo = {} }, ---@type kulala.ui.win_config
         -- default view: "body" or "headers" or "headers_body" or "verbose" or fun(response: Response)
@@ -180,20 +136,10 @@ return {
         enable = true,
 
         ---filetypes to attach Kulala LSP to
+        ---v5 には enforce_external_script_naming_convention が無く、
+        ---javascript/typescript/lua を入れると全バッファに LSP が付くため絞る。
         ---@type string[]
-        filetypes = {
-          "http",
-          "rest",
-          "javascript",
-          "typescript",
-          "lua",
-        },
-
-        ---Only scripts ending in *.http.js, *.http.ts and *.http.lua will be treated as HTTP scripts and
-        ---have LSP capabilities, unless `enforce_external_script_naming_convention` is set to false.
-        ---This allows users to have non-HTTP scripts with the same filetypes without LSP interference.
-        ---@type boolean
-        enforce_external_script_naming_convention = true,
+        filetypes = { "http", "rest" },
 
         --enable/disable/customize  LSP keymaps
         ---@type boolean|table
@@ -253,38 +199,8 @@ return {
 
       kulala_keymaps_prefix = "",
 
-      -- Forward script console output (`console.*`, `client.log`, skip/abort messages)
-      -- to vim.notify. Set to false to disable.
-      script_console_notify = true,
-      --[[
-        {
-          title = "kulala",
-          notify = function(message, level, opts, entry)
-            vim.notify(message, level, opts)
-          end,
-        }
-      ]]
 
-      -- OpenAPI explorer panel keymaps (see docs or lua/kulala/config/keymaps.lua)
-      openapi_panel_keymaps = true,
 
-      -- OpenAPI explorer split, fold signs, and highlight groups
-      openapi_panel = {
-        split = "right",
-        signs = { folded = ">", expanded = "v" },
-        highlights = {
-          section = "Title",
-          operation = "Function",
-          parameter = "Identifier",
-          response = "Number",
-          schema = "Type",
-          try_it_out = "String",
-          description = "Comment",
-          badge = "Comment",
-          sign = "Special",
-          value = "Constant",
-        },
-      },
     },
   },
 }
