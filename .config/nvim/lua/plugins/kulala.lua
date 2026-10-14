@@ -9,6 +9,12 @@ return {
     -- トークン不要で動く最後のリリースが v5.3.4（2026-02-08）。
     -- 上げるときは lazy-lock.json も :Lazy update kulala.nvim で更新すること。
     tag = "v5.3.4",
+    -- fmt サブモジュール(kulala-fmt)の init が途中で死に、.git/modules/fmt が
+    -- config だけの空リポジトリとして残る。git が再帰のたびに
+    -- `fatal: not a git repository` で落ちて checkout が中断し、
+    -- worktree が埋まりきらないまま「ローカル変更あり」と判定されて
+    -- lazy がタグへの切り替えを拒否する。fmt は実行時に使わないので再帰を止める。
+    submodules = false,
     -- Load before session save/restore so VimLeavePre and SessionLoadPost hooks are registered.
     event = { "SessionLoadPost", "VimLeavePre" },
     keys = {
