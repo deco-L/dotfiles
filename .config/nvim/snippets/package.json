@@ -4,6 +4,10 @@
       {
         "language": "markdown",
         "path": "./design_doc.json"
+      },
+      {
+        "language": "http",
+        "path": "./http.json"
       }
     ]
   }

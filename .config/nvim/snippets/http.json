@@ -1,0 +1,85 @@
+{
+  "Kulala file template (zeus-api format)": {
+    "prefix": "httpfile",
+    "description": "api-requests リポジトリの体裁（ヘッダコメント + 変数 + 最小例 + フル例）",
+    "body": [
+      "# ${1:store/search}.http",
+      "# ${2|POST,GET,PATCH,PUT,DELETE|} ${3:/v1/store/search}（${4:src/usecase/store/search.ts}）",
+      "# 認可: ${5:checkAuthorization('plays') — plays 権限の Bearer トークンが必要}",
+      "#",
+      "# body パラメータ（${6:準拠元スキーマ}）:",
+      "#   ${7:param}  ${8|必須,任意|}（${9:型・制約}）",
+      "",
+      "@baseUrl = {{host}}",
+      "@token = {{ACCESS_TOKEN}}",
+      "",
+      "### ${10:説明}（最小: 必須のみ）",
+      "${2} {{baseUrl}}${3}",
+      "Content-Type: application/json",
+      "Authorization: Bearer {{token}}",
+      "",
+      "{",
+      "  \"${11:key}\": ${12:value}",
+      "}",
+      "",
+      "### ${10}（フル例）",
+      "${2} {{baseUrl}}${3}",
+      "Content-Type: application/json",
+      "Authorization: Bearer {{token}}",
+      "",
+      "{",
+      "  $0",
+      "}"
+    ]
+  },
+  "Kulala body param line": {
+    "prefix": "httpparam",
+    "description": "ヘッダコメントの body パラメータ 1 行（必須/任意 + 型・制約）",
+    "body": [
+      "#   ${1:param}        ${2|必須,任意|}（${3:型・制約}）${4}",
+      "$0"
+    ]
+  },
+  "Kulala body param sub line": {
+    "prefix": "httpparamsub",
+    "description": "パラメータの内訳行（- key: ... の字下げ行）",
+    "body": [
+      "#     - ${1:key}:      ${2:とり得る値・説明}",
+      "$0"
+    ]
+  },
+  "Kulala request block": {
+    "prefix": "httpreq",
+    "description": "リクエストブロックを 1 つ追加（### 区切り・Bearer 付き）",
+    "body": [
+      "### ${1:説明}",
+      "${2|POST,GET,PATCH,PUT,DELETE|} {{baseUrl}}${3:/v1/path}",
+      "Content-Type: application/json",
+      "Authorization: Bearer {{token}}",
+      "",
+      "{",
+      "  \"${4:key}\": ${5:value}",
+      "}",
+      "$0"
+    ]
+  },
+  "Kulala named request + capture": {
+    "prefix": "httpname",
+    "description": "@name 付きリクエスト（後続から {{name.response.body.$.field}} で参照）",
+    "body": [
+      "### ${1:説明}",
+      "# @name ${2:reqName}",
+      "${3|POST,GET,PATCH,PUT,DELETE|} {{baseUrl}}${4:/v1/path}",
+      "Content-Type: application/json",
+      "",
+      "{",
+      "  \"${5:key}\": ${6:value}",
+      "}",
+      "",
+      "### ${7:前のレスポンスを使う例}",
+      "GET {{baseUrl}}${8:/v1/path}",
+      "x-api-key: {{${2}.response.body.\\$.${9:plainKey}}}",
+      "$0"
+    ]
+  }
+}
