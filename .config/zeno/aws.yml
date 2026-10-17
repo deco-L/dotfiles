@@ -6,6 +6,42 @@ snippets:
     snippet: |-
       aws cloudformation describe-stacks --stack-name {{stack}} --profile {{profile}} --query "Stacks[0].Parameters" --output json | jq -r 'sort_by(.ParameterKey)[] | "\(.ParameterKey): \(.ParameterValue)"'
 
+  - name: aws sso login
+    keyword: awslogin
+    snippet: |-
+      aws sso login --profile {{pfofile}}
+
+  - name: aws security token service
+    keyword: aws sts
+    snippet: |-
+      aws sts get-caller-identity --profile {{profile}}
+
+  # cbphases<Space> → 1 ビルドのフェーズごとの所要時間を表で見る
+  # {{build}} にはビルド ID（プロジェクト名:UUID）か ARN を入れる
+  - name: aws codebuild build phases
+    keyword: cbphases
+    snippet: |-
+      aws codebuild batch-get-builds --profile {{profile}} --region ap-northeast-1 --ids {{build}} --query 'builds[].phases[].{phase:phaseType,sec:durationInSeconds,status:phaseStatus}' --output table
+
+  # cbtimes<Space> → プロジェクトの直近 10 ビルドを 1 行ずつ、INSTALL / BUILD / POST_BUILD の秒数で比較
+  - name: aws codebuild recent build times
+    keyword: cbtimes
+    snippet: |-
+      ids=$(aws codebuild list-builds-for-project --profile {{profile}} --region ap-northeast-1 --project-name {{project}} --sort-order DESCENDING --max-items 10 --query 'ids' --output text) && aws codebuild batch-get-builds --profile {{profile}} --region ap-northeast-1 --ids $ids --query 'builds[].{id:id,start:startTime,status:buildStatus,install:phases[?phaseType==`INSTALL`].durationInSeconds|[0],build:phases[?phaseType==`BUILD`].durationInSeconds|[0],post:phases[?phaseType==`POST_BUILD`].durationInSeconds|[0]}' --output table
+
+  # cbproject<Space> → ビルドプロジェクトの実行環境（computeType / イメージ / タイムアウト / キャッシュ）を見る
+  # computeType → vCPU・メモリの対応は https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html#environment.types
+  - name: aws codebuild project environment
+    keyword: cbproject
+    snippet: |-
+      aws codebuild batch-get-projects --profile {{profile}} --region ap-northeast-1 --names {{project}} --query 'projects[].{timeoutMin:timeoutInMinutes,queuedTimeoutMin:queuedTimeoutInMinutes,computeType:environment.computeType,type:environment.type,image:environment.image,privileged:environment.privilegedMode,cache:cache}'
+
+  # ecrimages<Space> → ECR の直近 10 イメージをタグ・プッシュ日時・サイズ（圧縮後）で一覧
+  - name: aws ecr recent images
+    keyword: ecrimages
+    snippet: |-
+      aws ecr describe-images --profile {{profile}} --region ap-northeast-1 --repository-name {{repository}} --query 'reverse(sort_by(imageDetails,&imagePushedAt))[:10].{tag:imageTags[0],pushedAt:imagePushedAt,sizeMB:imageSizeInBytes}' --output table
+
 completions:
   # aws <subcommand> --profile <TAB>
   - name: aws profile

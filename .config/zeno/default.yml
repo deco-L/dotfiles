@@ -1,4 +1,9 @@
 snippets:
+  # zenor<Space> → zeno の常駐サーバを落として再起動させる（config の yml 変更を反映）
+  - name: zeno restart
+    keyword: zenor
+    snippet: pkill -f "zeno.zsh/src/server.ts"
+
   - name: "null"
     keyword: "null"
     snippet: ">/dev/null 2>&1"

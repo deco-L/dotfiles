@@ -95,3 +95,59 @@ snippets:
       git fetch origin && git merge-tree --write-tree origin/{{base}} {{topic}}
       && echo '✅ 衝突なし' || echo '💥 衝突あり(上の出力が衝突ファイル)'
 
+  # gwl<Space> → worktree の一覧（パス・HEAD・ブランチ）
+  - name: git worktree list
+    keyword: gwl
+    snippet: git worktree list
+
+  # gwa<Space> → 新規ブランチを切って worktree を作る（issue 単位の作業ツリー用）
+  # {{start_point}} には origin/main 等。省略したい場合は消して実行
+  - name: git worktree add new branch
+    keyword: gwa
+    snippet: git worktree add -b {{branch}} {{path}} {{start_point}}
+
+  # gwr<Space> → worktree を削除（ブランチ自体は残る。未コミット変更があると拒否される）
+  - name: git worktree remove
+    keyword: gwr
+    snippet: git worktree remove {{path}}
+
+  # gup<Space> → 現在のブランチの upstream（追跡先）を表示。未設定ならエラー
+  - name: git upstream branch
+    keyword: gup
+    snippet: git rev-parse --abbrev-ref --symbolic-full-name '@{u}'
+
+  # gswc<Space> → リモートブランチを起点にローカルブランチを切って移動
+  - name: git switch create from remote
+    keyword: gswc
+    snippet: git switch -c {{branch}} {{remote_branch}}
+
+  # glf<Space> → ファイルの変更履歴を日付付きで（%as=author date。末尾の行が誕生コミット）
+  # 展開後そのまま Tab（zeno-completion）で下の fzf ファイル選択が出る
+  - name: git log follow file
+    keyword: glf
+    snippet: "git log --format='%h %as %s' --follow -- "
+
+  # gcme<Space> → 空コミット（PR アンカー用など。--no-verify は husky 未生成の新規 worktree 対策）
+  - name: git commit allow empty
+    keyword: gcme
+    snippet: "git commit --allow-empty --no-verify -m '{{commit_message}}'"
+
+completions:
+  # `git log ... -- ` まで打った状態（glf 展開直後など）で Tab → fzf でファイル選択
+  - name: git log file
+    patterns:
+      - "^git log( .*)? -- $"
+    sourceCommand: "git ls-files"
+    options:
+      --prompt: "'File> '"
+      --preview: "git log --format='%h %as %s' --follow -- {} | head -40"
+
+  # `git -C ` の直後に Tab → ghq 管理下のリポジトリパスを fzf で選択
+  - name: git -C repo path
+    patterns:
+      - "^git -C $"
+    sourceCommand: "ghq list --full-path"
+    options:
+      --prompt: "'Repo> '"
+      --preview: "git -C {} log --format='%h %as %s' -5 && git -C {} status --short --branch | head -10"
+

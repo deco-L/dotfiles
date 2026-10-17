@@ -1,5 +1,11 @@
 snippets:
 
+  - name: init
+    keyword: :init
+    snippet: 󱁖
+    context:
+      lbuffer: '.*\s'
+
   - name: build
     keyword: :build
     snippet: 
